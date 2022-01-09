@@ -33,7 +33,7 @@ function Home() {
                 </Link>
               </div>
             </div>
-            <div className="w-full h-56 sm:h-96 relative">
+            <div className="my-12 sm:my-2 w-full h-56 sm:h-96 relative">
               <svg
                 className="-mt-12 absolute"
                 viewBox="0 0 200 200"

@@ -5,6 +5,9 @@ import SuspenseCom from "../components/Suspense";
 // Pages
 const Home = lazy(() => import("../pages/Home"));
 const PageNotFound = lazy(() => import("../pages/PageNotFound"));
+const CreateTransferWizard = lazy(
+  () => import("../pages/CreateTransferWizard/CreateTransferWizard")
+);
 
 function IndexRouter() {
   return (
@@ -12,6 +15,7 @@ function IndexRouter() {
       <Suspense fallback={<SuspenseCom />}>
         <Routes>
           <Route index element={<Home />} />
+          <Route path="/create-transfer" element={<CreateTransferWizard />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Suspense>
