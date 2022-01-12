@@ -8,6 +8,7 @@ const PageNotFound = lazy(() => import("../pages/PageNotFound"));
 const CreateTransferWizard = lazy(
   () => import("../pages/CreateTransferWizard/CreateTransferWizard")
 );
+const ViewTransfer = lazy(() => import("../pages/ViewTransfer/ViewTransfer"));
 
 function IndexRouter() {
   return (
@@ -16,6 +17,7 @@ function IndexRouter() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/create-transfer" element={<CreateTransferWizard />} />
+          <Route path="/view-transfer" element={<ViewTransfer />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Suspense>
