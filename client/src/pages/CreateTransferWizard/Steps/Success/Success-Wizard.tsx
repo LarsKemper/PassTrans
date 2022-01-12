@@ -1,10 +1,13 @@
 import React from "react";
-import { TransferStep } from "../../../shared/interfaces/TranferStep";
-import ProgressWizard from "../../../components/ProgressWizard";
-import { generateLink } from "../../../services/generateLink.service";
+import ProgressWizard from "../../../../components/ProgressWizard";
+import "./Success-Wizard-Style.css";
 
-function TransferLink(props: TransferStep) {
-  console.log(generateLink(12));
+interface Props {
+  step: number;
+  prevStep(): void;
+}
+
+function Success(props: Props) {
   return (
     <>
       <div className="min-w-screen relative overflow-hidden min-h-screen bg-gradient-to-br from-primary-bg-light to-primary-bg-dark flex items-center justify-center px-5 py-5">
@@ -15,20 +18,20 @@ function TransferLink(props: TransferStep) {
           <div className="relative z-50 bg-opacity-90 bg-primary-bg-darker rounded-xl shadow-xl">
             <div className="md:flex w-full">
               <div className="w-full py-10 px-5 md:px-10">
-                <ProgressWizard step={props.values.step} />
+                <ProgressWizard step={props.step} />
                 <div className="text-center my-10">
                   <h1 className="font-bold text-3xl text-white">
-                    TRANSFER LINK
+                    FINISH CREATION
                   </h1>
                   <p className="text-white">
-                    Enter your information to create a new transfer
+                    Thank you for your trust. We hope we could help you
                   </p>
                 </div>
                 <div>
-                  <div className="flex -mx-3">
+                  <div className="invisible flex -mx-3">
                     <div className="w-full px-3 mb-5">
                       <label htmlFor="" className="text-white text-xs px-1">
-                        Transfer link
+                        Email
                       </label>
                       <div className="flex">
                         <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
@@ -36,15 +39,21 @@ function TransferLink(props: TransferStep) {
                         </div>
                         <input
                           type="email"
-                          className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-l-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                          className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                          placeholder="johnsmith@example.com"
                         />
-                        <button className="bg-primary-bg-darker hover:bg-white hover:text-primary-bg-dark duration-300 text-white bg-opacity-90 px-8 py-2 rounded-r-lg border border-gray-200 outline-none focus:border-secondary-purple">
-                          Copy
-                        </button>
                       </div>
                     </div>
                   </div>
-                  <div className="flex -mx-3">
+                  <div className="success-checkmark">
+                    <div className="check-icon">
+                      <span className="icon-line line-tip"></span>
+                      <span className="icon-line line-long"></span>
+                      <div className="icon-circle"></div>
+                      <div className="icon-fix"></div>
+                    </div>
+                  </div>
+                  <div className="invisible flex -mx-3">
                     <div className="w-full px-3 mb-5">
                       <label htmlFor="" className="text-white text-xs px-1">
                         Email
@@ -62,23 +71,6 @@ function TransferLink(props: TransferStep) {
                     </div>
                   </div>
                   <div className="flex -mx-3">
-                    <div className="w-full px-3 mb-12">
-                      <label htmlFor="" className="text-white text-xs px-1">
-                        Password
-                      </label>
-                      <div className="flex">
-                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                          <i className="mdi mdi-lock-outline text-gray-400 text-lg"></i>
-                        </div>
-                        <input
-                          type="password"
-                          className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
-                          placeholder="************"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex -mx-3">
                     <div className="flex w-full px-3 mb-5">
                       <button
                         onClick={props.prevStep}
@@ -86,11 +78,8 @@ function TransferLink(props: TransferStep) {
                       >
                         BACK
                       </button>
-                      <button
-                        onClick={props.nextStep}
-                        className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold"
-                      >
-                        NEXT
+                      <button className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold">
+                        FINISH
                       </button>
                     </div>
                   </div>
@@ -137,4 +126,4 @@ function TransferLink(props: TransferStep) {
   );
 }
 
-export default TransferLink;
+export default Success;

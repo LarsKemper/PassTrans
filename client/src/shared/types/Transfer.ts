@@ -6,4 +6,5 @@ export type Transfer = {
   lastName: string;
   country: string;
   expirationDate: string | null;
+  id: string;
 };

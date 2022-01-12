@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Svg404 } from "../assets/svg/404.svg";
 
-import GridLoader from "react-spinners/GridLoader";
-
 function PageNotFound() {
   return (
     <>

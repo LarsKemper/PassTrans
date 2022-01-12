@@ -3,10 +3,10 @@ import { Transfer } from "../../shared/types/Transfer";
 import { Navigate } from "react-router";
 
 // Components
-import UserDetails from "./Steps/UserDetails";
-import PasswordInformation from "./Steps/PasswordInformation";
-import TransferLink from "./Steps/TransferLink";
-import Success from "./Steps/Success";
+import UserDetails from "./Steps/UserDetails-Wizard";
+import PasswordInformation from "./Steps/PasswordInformation-Wizard";
+import TransferLink from "./Steps/TransferLink-Wizard";
+import Success from "./Steps/Success/Success-Wizard";
 
 function CreateTransferWizard() {
   const [state, setState] = useState<Transfer>({
@@ -17,6 +17,7 @@ function CreateTransferWizard() {
     lastName: "",
     country: "",
     expirationDate: null,
+    id: "",
   });
 
   function prevStep(): void {
@@ -35,8 +36,6 @@ function CreateTransferWizard() {
   ): void {
     setState({ ...state, [input]: e.target.value });
   }
-
-  console.log();
 
   switch (state.step) {
     case 1:

@@ -1,8 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { TransferStep } from "../../../shared/interfaces/TranferStep";
 import ProgressWizard from "../../../components/ProgressWizard";
+import { focusColors } from "../../../shared/enums/focusColors.enum";
+import { error } from "../../../services/alert/alert.service";
 
-function UserDetails(props: TransferStep) {
+function PasswordInformation(props: TransferStep) {
+  const [focusColor, setFocusColor] = useState<focusColors>(focusColors.WEEK);
+  const [barLength, setBarLength] = useState<number>(20);
+
+  function getStrengthStyle(): void {
+    const passwordLength: number = props.values.password.length;
+
+    if (passwordLength <= 4) {
+      setBarLength(20);
+      setFocusColor(focusColors.WEEK);
+    } else if (passwordLength > 4 && passwordLength <= 7) {
+      setBarLength(40);
+      setFocusColor(focusColors.WEEK_MEDIUM);
+    } else if (passwordLength > 7 && passwordLength <= 9) {
+      setBarLength(60);
+      setFocusColor(focusColors.MEDIUM);
+    } else if (passwordLength > 9 && passwordLength <= 12) {
+      setBarLength(80);
+      setFocusColor(focusColors.MEDIUM_STRONG);
+    } else {
+      setBarLength(100);
+      setFocusColor(focusColors.STRONG);
+    }
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+    e.preventDefault();
+
+    if (barLength <= 80) {
+      return error("Password is too week");
+    }
+
+    if (isDateinPast(props.values.expirationDate)) {
+      return error("Exipition date can't be in the Past");
+    }
+
+    props.nextStep();
+  }
+
+  function isDateinPast(inputDate: string | null): boolean {
+    if (!inputDate) {
+      return false;
+    }
+    const input = new Date(inputDate);
+    const now = new Date();
+    if (input.setHours(0, 0, 0, 0) <= now.setHours(0, 0, 0, 0)) {
+      return true;
+    }
+    return false;
+  }
+
   return (
     <>
       <div className="min-w-screen relative overflow-hidden min-h-screen bg-gradient-to-br from-primary-bg-light to-primary-bg-dark flex items-center justify-center px-5 py-5">
@@ -16,51 +68,35 @@ function UserDetails(props: TransferStep) {
                 <ProgressWizard step={props.values.step} />
                 <div className="text-center my-10">
                   <h1 className="font-bold text-3xl text-white">
-                    USER INFORMATION
+                    PASSWORD INFORMATION
                   </h1>
                   <p className="text-white">
                     Enter your information to create a new transfer
                   </p>
                 </div>
                 <div>
-                  <form onSubmit={props.nextStep}>
+                  <form
+                    onSubmit={(e) => {
+                      handleSubmit(e);
+                    }}
+                  >
                     <div className="flex -mx-3">
-                      <div className="w-1/2 px-3 mb-5">
+                      <div className="w-full px-3 mb-5">
                         <label htmlFor="" className="text-white text-xs px-1">
-                          First name
+                          Password
                         </label>
                         <div className="flex">
                           <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                            <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
+                            <i className="mdi mdi-email-outline text-gray-400 text-lg"></i>
                           </div>
                           <input
                             onChange={(e) => {
-                              props.handleChange(e, "firstName");
+                              props.handleChange(e, "password");
+                              getStrengthStyle();
                             }}
-                            defaultValue={props.values.firstName}
-                            type="text"
-                            className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
-                            placeholder="John"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div className="w-1/2 px-3 mb-5">
-                        <label htmlFor="" className="text-white text-xs px-1">
-                          Last name
-                        </label>
-                        <div className="flex">
-                          <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                            <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
-                          </div>
-                          <input
-                            onChange={(e) => {
-                              props.handleChange(e, "lastName");
-                            }}
-                            defaultValue={props.values.lastName}
-                            type="text"
-                            className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
-                            placeholder="Smith"
+                            type="password"
+                            className={`${focusColor} text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none`}
+                            placeholder="*************"
                             required
                           />
                         </div>
@@ -69,29 +105,20 @@ function UserDetails(props: TransferStep) {
                     <div className="flex -mx-3">
                       <div className="w-full px-3 mb-5">
                         <label htmlFor="" className="text-white text-xs px-1">
-                          Email
+                          Password strength
                         </label>
-                        <div className="flex">
-                          <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                            <i className="mdi mdi-email-outline text-gray-400 text-lg"></i>
-                          </div>
-                          <input
-                            onChange={(e) => {
-                              props.handleChange(e, "email");
-                            }}
-                            defaultValue={props.values.email}
-                            type="email"
-                            className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
-                            placeholder="johnsmith@example.com"
-                            required
-                          />
+                        <div className="flex items-center border border-gray-200 h-10 w-full rounded-xl">
+                          <div
+                            style={{ width: `${barLength}%` }}
+                            className="duration-300 mx-4 inline-block h-auto bg-gradient-to-r from-secondary-purple-dark via-secondary-purple to-secondary-purple-light rounded-full p-2"
+                          ></div>
                         </div>
                       </div>
                     </div>
                     <div className="flex -mx-3">
                       <div className="w-full px-3 mb-12">
                         <label htmlFor="" className="text-white text-xs px-1">
-                          Country
+                          Exipition date
                         </label>
                         <div className="flex">
                           <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
@@ -99,12 +126,11 @@ function UserDetails(props: TransferStep) {
                           </div>
                           <input
                             onChange={(e) => {
-                              props.handleChange(e, "country");
+                              props.handleChange(e, "expirationDate");
                             }}
-                            defaultValue={props.values.country}
-                            type="text"
-                            className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
-                            placeholder="Germany"
+                            type="date"
+                            className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                            placeholder="************"
                             required
                           />
                         </div>
@@ -113,9 +139,12 @@ function UserDetails(props: TransferStep) {
                     <div className="flex -mx-3">
                       <div className="flex w-full px-3 mb-5">
                         <button
-                          type="submit"
+                          onClick={props.prevStep}
                           className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold"
                         >
+                          BACK
+                        </button>
+                        <button className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold">
                           NEXT
                         </button>
                       </div>
@@ -164,4 +193,4 @@ function UserDetails(props: TransferStep) {
   );
 }
 
-export default UserDetails;
+export default PasswordInformation;
