@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { TransferStep } from "../../../shared/interfaces/TranferStep";
+import React, { useState, useEffect } from "react";
 import ProgressWizard from "../../../components/ProgressWizard";
 import { generateLink } from "../../../services/generateLink.service";
+import { GenerateLinkOBJ } from "../../../shared/types/GenerateLinkOBJ";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Transfer } from "../../../shared/types/Transfer";
 // SVGs
 import { ReactComponent as FacebookSvg } from "../../../assets/svg/social media/facebook.svg";
 import { ReactComponent as WhatsappSvg } from "../../../assets/svg/social media/whatsapp.svg";
@@ -14,9 +15,26 @@ import {
   WhatsappShareButton,
 } from "react-share";
 
-function TransferLink(props: TransferStep) {
-  const [transferLink] = useState<string>(generateLink());
+export interface TransferLink {
+  prevStep(): void;
+  nextStep(): void;
+  handleChange(e: React.ChangeEvent<HTMLInputElement>, input: any): void;
+  setID(id: string): void;
+  values: Transfer;
+}
+
+function TransferLink(props: TransferLink) {
+  const { link, id } = generateLink();
+  const [transferLink] = useState<string>(link);
+  const [transferId] = useState<string>(id);
   const [copied, setCopied] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (transferId) {
+      props.setID(id);
+      console.log(id);
+    }
+  }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();

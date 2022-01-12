@@ -1,3 +1,5 @@
+import { GenerateLinkOBJ } from "../shared/types/GenerateLinkOBJ";
+
 const base = process.env.REACT_APP_URL_TRANSFER_LINK;
 
 function generateID(len: number): string {
@@ -13,6 +15,10 @@ function generateID(len: number): string {
   return r;
 }
 
-export function generateLink(): string {
-  return base + generateID(12);
+export function generateLink(): GenerateLinkOBJ {
+  const id = generateID(12);
+  return {
+    id: id,
+    link: base + id,
+  };
 }

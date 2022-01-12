@@ -4,6 +4,7 @@ import "./Success-Wizard-Style.css";
 
 interface Props {
   step: number;
+  submit(): void;
   prevStep(): void;
 }
 
@@ -78,7 +79,10 @@ function Success(props: Props) {
                       >
                         BACK
                       </button>
-                      <button className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold">
+                      <button
+                        onClick={props.submit}
+                        className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold"
+                      >
                         FINISH
                       </button>
                     </div>

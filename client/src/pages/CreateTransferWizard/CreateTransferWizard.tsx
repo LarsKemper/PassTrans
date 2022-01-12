@@ -37,6 +37,15 @@ function CreateTransferWizard() {
     setState({ ...state, [input]: e.target.value });
   }
 
+  function setID(id: string) {
+    setState({ ...state, id: id });
+  }
+
+  function handleSubmit(): void {
+    // TODO: Create Transfer Wizard request
+    console.log(state);
+  }
+
   switch (state.step) {
     case 1:
       return (
@@ -62,11 +71,14 @@ function CreateTransferWizard() {
           prevStep={prevStep}
           nextStep={nextStep}
           handleChange={handleChange}
+          setID={setID}
           values={state}
         />
       );
     case 4:
-      return <Success step={state.step} prevStep={prevStep} />;
+      return (
+        <Success step={state.step} submit={handleSubmit} prevStep={prevStep} />
+      );
     default:
       return <Navigate to="/404" />;
   }
