@@ -3,10 +3,10 @@ import { Transfer } from "../../shared/types/Transfer";
 import { Navigate } from "react-router";
 
 // Components
-import UserDetails from "./Steps/UserDetails";
-import PasswordInformation from "./Steps/PasswordInformation";
-import TransferLink from "./Steps/TransferLink";
-import Success from "./Steps/Success";
+import UserDetails from "./Steps/UserDetails-Wizard";
+import PasswordInformation from "./Steps/PasswordInformation-Wizard";
+import TransferLink from "./Steps/TransferLink-Wizard";
+import Success from "./Steps/Success/Success-Wizard";
 
 function CreateTransferWizard() {
   const [state, setState] = useState<Transfer>({
@@ -17,6 +17,7 @@ function CreateTransferWizard() {
     lastName: "",
     country: "",
     expirationDate: null,
+    id: "",
   });
 
   function prevStep(): void {
@@ -36,7 +37,14 @@ function CreateTransferWizard() {
     setState({ ...state, [input]: e.target.value });
   }
 
-  console.log();
+  function setID(id: string) {
+    setState({ ...state, id: id });
+  }
+
+  function handleSubmit(): void {
+    // TODO: Create Transfer Wizard request
+    console.log(state);
+  }
 
   switch (state.step) {
     case 1:
@@ -63,11 +71,14 @@ function CreateTransferWizard() {
           prevStep={prevStep}
           nextStep={nextStep}
           handleChange={handleChange}
+          setID={setID}
           values={state}
         />
       );
     case 4:
-      return <Success step={state.step} prevStep={prevStep} />;
+      return (
+        <Success step={state.step} submit={handleSubmit} prevStep={prevStep} />
+      );
     default:
       return <Navigate to="/404" />;
   }
