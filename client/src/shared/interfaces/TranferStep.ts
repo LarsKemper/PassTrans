@@ -1,4 +1,4 @@
-import { Transfer } from "../types/Transfer";
+import { Transfer } from "../types/Transfer.type";
 
 export interface TransferStep {
   prevStep(): void;

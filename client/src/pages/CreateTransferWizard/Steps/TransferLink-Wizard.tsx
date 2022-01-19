@@ -3,7 +3,7 @@ import ProgressWizard from "../../../components/ProgressWizard";
 import { generateLink } from "../../../services/generateLink.service";
 import { GenerateLinkOBJ } from "../../../shared/types/GenerateLinkOBJ";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Transfer } from "../../../shared/types/Transfer";
+import { Transfer } from "../../../shared/types/Transfer.type";
 // SVGs
 import { ReactComponent as FacebookSvg } from "../../../assets/svg/social media/facebook.svg";
 import { ReactComponent as WhatsappSvg } from "../../../assets/svg/social media/whatsapp.svg";
@@ -19,7 +19,8 @@ export interface TransferLink {
   prevStep(): void;
   nextStep(): void;
   handleChange(e: React.ChangeEvent<HTMLInputElement>, input: any): void;
-  setID(id: string): void;
+  setID(accessId: string): void;
+  submit(): void;
   values: Transfer;
 }
 
@@ -32,14 +33,8 @@ function TransferLink(props: TransferLink) {
   useEffect(() => {
     if (transferId) {
       props.setID(id);
-      console.log(id);
     }
   }, []);
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
-    e.preventDefault();
-    props.nextStep();
-  }
 
   return (
     <>
@@ -61,148 +56,142 @@ function TransferLink(props: TransferLink) {
                   </p>
                 </div>
                 <div>
-                  <form
-                    onSubmit={(e) => {
-                      handleSubmit(e);
-                    }}
-                  >
-                    <div className="flex -mx-3">
-                      <div className="w-full px-3 mb-5">
-                        <label htmlFor="" className="text-white text-xs px-1">
-                          Transfer link
-                        </label>
-                        <div className="flex">
-                          <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                            <i className="mdi mdi-email-outline text-gray-400 text-lg"></i>
-                          </div>
-                          <input
-                            type="text"
-                            readOnly
-                            defaultValue={transferLink}
-                            className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-l-lg border border-gray-200 outline-none focus:border-secondary-purple"
-                          />
-                          <CopyToClipboard
-                            text={transferLink}
-                            onCopy={() => setCopied(true)}
-                          >
-                            <span className="bg-primary-bg-darker hover:bg-white hover:text-primary-bg-dark duration-300 text-white bg-opacity-90 px-8 py-2 rounded-r-lg border border-gray-200 outline-none focus:border-secondary-purple">
-                              {copied ? (
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="mx-1.5 h-6 w-6"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                                  />
-                                </svg>
-                              ) : (
-                                "Copy"
-                              )}
-                            </span>
-                          </CopyToClipboard>
+                  <div className="flex -mx-3">
+                    <div className="w-full px-3 mb-5">
+                      <label htmlFor="" className="text-white text-xs px-1">
+                        Transfer link
+                      </label>
+                      <div className="flex">
+                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                          <i className="mdi mdi-email-outline text-gray-400 text-lg"></i>
                         </div>
+                        <input
+                          type="text"
+                          readOnly
+                          defaultValue={transferLink}
+                          className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-l-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                        />
+                        <CopyToClipboard
+                          text={transferLink}
+                          onCopy={() => setCopied(true)}
+                        >
+                          <span className="bg-primary-bg-darker hover:bg-white hover:text-primary-bg-dark duration-300 text-white bg-opacity-90 px-8 py-2 rounded-r-lg border border-gray-200 outline-none focus:border-secondary-purple">
+                            {copied ? (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="mx-1.5 h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                              </svg>
+                            ) : (
+                              "Copy"
+                            )}
+                          </span>
+                        </CopyToClipboard>
                       </div>
                     </div>
-                    <div className="flex -mx-3">
-                      <div className="w-1/3 px-3 mb-5">
-                        <label
-                          htmlFor=""
-                          className="text-white text-xs px-1"
-                        ></label>
-                        <div className="flex">
-                          <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                            <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
-                          </div>
-                          <FacebookShareButton
-                            className="group w-full -ml-10 cursor-pointer bg-primary-bg-darker bg-opacity-90 "
-                            url={transferLink}
-                          >
-                            <div className="duration-300 hover:bg-white flex justify-center items-center w-full pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple">
-                              <FacebookSvg className="w-6 h-6 group-hover:fill-primary-bg-dark fill-white stroke-transparent" />
-                            </div>
-                          </FacebookShareButton>
+                  </div>
+                  <div className="flex -mx-3">
+                    <div className="w-1/3 px-3 mb-5">
+                      <label
+                        htmlFor=""
+                        className="text-white text-xs px-1"
+                      ></label>
+                      <div className="flex">
+                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                          <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
                         </div>
-                      </div>
-                      <div className="w-1/3 px-3 mb-5">
-                        <label
-                          htmlFor=""
-                          className="text-white text-xs px-1"
-                        ></label>
-                        <div className="flex">
-                          <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                            <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
+                        <FacebookShareButton
+                          className="group w-full -ml-10 cursor-pointer bg-primary-bg-darker bg-opacity-90 "
+                          url={transferLink}
+                        >
+                          <div className="duration-300 hover:bg-white flex justify-center items-center w-full pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple">
+                            <FacebookSvg className="w-6 h-6 group-hover:fill-primary-bg-dark fill-white stroke-transparent" />
                           </div>
-                          <EmailShareButton
-                            className="group w-full -ml-10 cursor-pointer bg-primary-bg-darker bg-opacity-90 "
-                            url={transferLink}
-                          >
-                            <div className="duration-300 hover:bg-white flex justify-center items-center w-full pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple">
-                              <EmailSvg className="w-6 h-6 group-hover:fill-primary-bg-dark fill-white stroke-transparent" />
-                            </div>
-                          </EmailShareButton>
+                        </FacebookShareButton>
+                      </div>
+                    </div>
+                    <div className="w-1/3 px-3 mb-5">
+                      <label
+                        htmlFor=""
+                        className="text-white text-xs px-1"
+                      ></label>
+                      <div className="flex">
+                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                          <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
                         </div>
-                      </div>
-                      <div className="w-1/3 px-3 mb-5">
-                        <label
-                          htmlFor=""
-                          className="text-white text-xs px-1"
-                        ></label>
-                        <div className="flex">
-                          <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                            <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
+                        <EmailShareButton
+                          className="group w-full -ml-10 cursor-pointer bg-primary-bg-darker bg-opacity-90 "
+                          url={transferLink}
+                        >
+                          <div className="duration-300 hover:bg-white flex justify-center items-center w-full pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple">
+                            <EmailSvg className="w-6 h-6 group-hover:fill-primary-bg-dark fill-white stroke-transparent" />
                           </div>
+                        </EmailShareButton>
+                      </div>
+                    </div>
+                    <div className="w-1/3 px-3 mb-5">
+                      <label
+                        htmlFor=""
+                        className="text-white text-xs px-1"
+                      ></label>
+                      <div className="flex">
+                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                          <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
+                        </div>
 
-                          <WhatsappShareButton
-                            className="group w-full -ml-10 cursor-pointer bg-primary-bg-darker bg-opacity-90 "
-                            url={transferLink}
-                          >
-                            <div className="duration-300 hover:bg-white flex justify-center items-center w-full pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple">
-                              <WhatsappSvg className="w-6 h-6 group-hover:fill-primary-bg-dark fill-white stroke-transparent" />
-                            </div>
-                          </WhatsappShareButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="invisible flex -mx-3">
-                      <div className="w-full px-3 mb-12">
-                        <label htmlFor="" className="text-white text-xs px-1">
-                          Password
-                        </label>
-                        <div className="flex">
-                          <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                            <i className="mdi mdi-lock-outline text-gray-400 text-lg"></i>
+                        <WhatsappShareButton
+                          className="group w-full -ml-10 cursor-pointer bg-primary-bg-darker bg-opacity-90 "
+                          url={transferLink}
+                        >
+                          <div className="duration-300 hover:bg-white flex justify-center items-center w-full pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple">
+                            <WhatsappSvg className="w-6 h-6 group-hover:fill-primary-bg-dark fill-white stroke-transparent" />
                           </div>
-                          <input
-                            type="password"
-                            className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
-                            placeholder="************"
-                          />
+                        </WhatsappShareButton>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="invisible flex -mx-3">
+                    <div className="w-full px-3 mb-12">
+                      <label htmlFor="" className="text-white text-xs px-1">
+                        Password
+                      </label>
+                      <div className="flex">
+                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                          <i className="mdi mdi-lock-outline text-gray-400 text-lg"></i>
                         </div>
+                        <input
+                          type="password"
+                          className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                          placeholder="************"
+                        />
                       </div>
                     </div>
-                    <div className="flex -mx-3">
-                      <div className="flex w-full px-3 mb-5">
-                        <button
-                          onClick={props.prevStep}
-                          className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold"
-                        >
-                          BACK
-                        </button>
-                        <button
-                          onClick={props.nextStep}
-                          className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold"
-                        >
-                          NEXT
-                        </button>
-                      </div>
+                  </div>
+                  <div className="flex -mx-3">
+                    <div className="flex w-full px-3 mb-5">
+                      <button
+                        onClick={props.prevStep}
+                        className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold"
+                      >
+                        BACK
+                      </button>
+                      <button
+                        onClick={props.submit}
+                        className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold"
+                      >
+                        SUBMIT
+                      </button>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
