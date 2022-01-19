@@ -4,6 +4,7 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
+import { apiRoutes } from "./shared/enums/apiRoutes.enum";
 
 // ROUTES IMPORT
 import transferRoutes from "./routes/transfer.routes";
@@ -20,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // ROUTERS
 const API_BASE = process.env.API_BASE;
 // TRANSFER ROUTER
-app.use(API_BASE + "create-transfer/", transferRoutes);
+app.use(API_BASE + apiRoutes.TRANSFER, transferRoutes);
 
 // START
 const CONNECTION_URL: any = process.env.DB_URL;

@@ -8,3 +8,7 @@ export const createTransfer = async (
 ): Promise<AxiosResponse> => {
   return await axios.post(combineRoutes(apiRoutes.CREATE_TRANSFER), transfer);
 };
+
+export const getTransfer = async (id: string): Promise<AxiosResponse> => {
+  return await axios.get(combineRoutes(apiRoutes.GET_TRANSFER, id));
+};

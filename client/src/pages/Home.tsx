@@ -8,7 +8,7 @@ function Home() {
     <>
       <div className="min-h-screen bg-gradient-to-br from-primary-bg-light to-primary-bg-dark">
         <Nav />
-        <div className="px-4 py-16 mx-auto sm:max-w-xl mIndexRouterd:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+        <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
           <div className="grid gap-10 lg:grid-cols-2 flex items-center">
             <div className="lg:pr-10">
               <h5 className="mb-4 leading-normal text-4xl text-white">
@@ -28,7 +28,7 @@ function Home() {
               <div className="flex items-center space-x-2">
                 <Link to="/create-transfer">
                   <span className="inline-flex items-center rounded justify-center w-full h-12 px-6 font-semiregular tracking-wide text-white transition duration-300< shadow-md md:w-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:shadow-outline focus:outline-none">
-                    Generate
+                    Create Transfer
                   </span>
                 </Link>
               </div>

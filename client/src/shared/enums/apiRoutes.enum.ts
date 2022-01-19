@@ -1,3 +1,4 @@
 export enum apiRoutes {
-  CREATE_TRANSFER = "/create-transfer",
+  CREATE_TRANSFER = "/transfer/",
+  GET_TRANSFER = "/transfer/",
 }

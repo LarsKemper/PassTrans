@@ -1,9 +1,9 @@
 import asyncHandler from "express-async-handler";
-import { TransferDto } from "../shared/types/Transfer";
+import { TransferDto, TransferViewDto } from "../shared/types/Transfer";
 import Transfer from "../models/Transfer";
 
 // @DESC Create Password Transfer
-// @ROUTE /api/v1/create-transfer
+// @ROUTE /api/v1/transfer
 // @METHOD POST
 export const createTransfer = asyncHandler(async (req, res): Promise<void> => {
   const idExist: TransferDto | null = await Transfer.findById(req.body.id);
@@ -32,4 +32,31 @@ export const createTransfer = asyncHandler(async (req, res): Promise<void> => {
     success: true,
     data: transfer,
   });
+});
+
+// @DESC Get Password Transfer
+// @ROUTE /api/transfer
+// @METHOD GET
+export const getTransfer = asyncHandler(async (req, res): Promise<void> => {
+  console.log(req.params.accessId);
+
+  const transfer: TransferDto | null = await Transfer.findOne({
+    accessId: req.params.accessId,
+  });
+
+  if (!transfer) {
+    res.status(404).json({ message: "Transfer not found!" });
+    return;
+  }
+
+  const transferViewDto: TransferViewDto = {
+    id: transfer._id,
+    accessId: transfer.accessId,
+    creatorIP: transfer.creatorIP,
+    visitorIP: transfer.visitorIP,
+    password: transfer.password,
+    expirationDate: transfer.expirationDate,
+  };
+
+  res.status(202).json({ success: true, data: transferViewDto });
 });
