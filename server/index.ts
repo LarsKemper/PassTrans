@@ -1,13 +1,12 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import bodyParser from "body-parser";
 import helmet from "helmet";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
-import fs from "fs";
-import path from "path";
 
 // ROUTES IMPORT
+import transferRoutes from "./routes/transfer.routes";
 
 const app: Express = express();
 
@@ -18,7 +17,10 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// ROUTES
+// ROUTERS
+const API_BASE = process.env.API_BASE;
+// TRANSFER ROUTER
+app.use(API_BASE + "create-transfer/", transferRoutes);
 
 // START
 const CONNECTION_URL: any = process.env.DB_URL;

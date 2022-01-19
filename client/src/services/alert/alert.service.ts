@@ -14,7 +14,11 @@ export function success(message: string): void {
 }
 
 export function error(message: string): void {
-  toast.error(message, settings);
+  if (message) {
+    toast.error(message, settings);
+  } else {
+    toast.error("Something gone wrong!", settings);
+  }
 }
 
 export function warning(message: string): void {

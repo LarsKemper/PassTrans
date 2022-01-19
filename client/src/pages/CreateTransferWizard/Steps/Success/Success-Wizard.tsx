@@ -1,14 +1,14 @@
 import React from "react";
 import ProgressWizard from "../../../../components/ProgressWizard";
 import "./Success-Wizard-Style.css";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   step: number;
-  submit(): void;
-  prevStep(): void;
 }
 
 function Success(props: Props) {
+  const navigate = useNavigate();
   return (
     <>
       <div className="min-w-screen relative overflow-hidden min-h-screen bg-gradient-to-br from-primary-bg-light to-primary-bg-dark flex items-center justify-center px-5 py-5">
@@ -74,16 +74,10 @@ function Success(props: Props) {
                   <div className="flex -mx-3">
                     <div className="flex w-full px-3 mb-5">
                       <button
-                        onClick={props.prevStep}
+                        onClick={() => navigate("/")}
                         className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold"
                       >
-                        BACK
-                      </button>
-                      <button
-                        onClick={props.submit}
-                        className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold"
-                      >
-                        FINISH
+                        Back to Home
                       </button>
                     </div>
                   </div>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Transfer } from "../../shared/types/Transfer";
+import { Transfer, TransferDto } from "../../shared/types/Transfer.type";
 import { Navigate } from "react-router";
+import { createTransfer } from "../../api/transfer.api";
+import { success, error } from "../../services/alert/alert.service";
 
 // Components
 import UserDetails from "./Steps/UserDetails-Wizard";
@@ -17,7 +19,7 @@ function CreateTransferWizard() {
     lastName: "",
     country: "",
     expirationDate: null,
-    id: "",
+    accessId: "",
   });
 
   function prevStep(): void {
@@ -38,12 +40,30 @@ function CreateTransferWizard() {
   }
 
   function setID(id: string) {
-    setState({ ...state, id: id });
+    setState({ ...state, accessId: id });
   }
 
-  function handleSubmit(): void {
-    // TODO: Create Transfer Wizard request
-    console.log(state);
+  async function handleSubmit() {
+    const transferDto: TransferDto = {
+      accessId: state.accessId,
+      firstName: state.firstName,
+      lastName: state.lastName,
+      email: state.email,
+      password: state.password,
+      country: state.country,
+      expirationDate: state.expirationDate,
+    };
+
+    await createTransfer(transferDto)
+      .then((res) => {
+        if (res.status === 201) {
+          nextStep();
+          return success("The transfer was created successfully.");
+        }
+      })
+      .catch((err) => {
+        return error(err);
+      });
   }
 
   switch (state.step) {
@@ -73,12 +93,11 @@ function CreateTransferWizard() {
           handleChange={handleChange}
           setID={setID}
           values={state}
+          submit={handleSubmit}
         />
       );
     case 4:
-      return (
-        <Success step={state.step} submit={handleSubmit} prevStep={prevStep} />
-      );
+      return <Success step={state.step} />;
     default:
       return <Navigate to="/404" />;
   }
