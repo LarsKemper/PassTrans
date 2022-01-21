@@ -3,14 +3,13 @@ import ConfirmationTransfer from "./states/ConfirmationTransfer";
 import ViewPassword from "./states/ViewPassword";
 import TransferBlocked from "./states/TransferBlocked";
 import { useParams } from "react-router-dom";
-import { getTransfer } from "../../api/transfer.api";
+import { getTransfer, setTransferViewed } from "../../api/transfer.api";
 import { error } from "../../services/alert/alert.service";
 import { useNavigate } from "react-router-dom";
 import { TransferView } from "../../shared/types/Transfer.type";
-import ViewTransferSkeleton from "./ViewTransferSkeleton";
+import ViewTransferSkeleton from "./states/ViewTransferSkeleton";
 
 function ViewTransfer() {
-  // TODO: Get transfer information
   const params = useParams();
   const navigate = useNavigate();
   const [state, setState] = useState<boolean>(false);
@@ -22,18 +21,12 @@ function ViewTransfer() {
     loadTransferData();
   }, [params]);
 
-  // TODO: add Blocked attribute to Model
-  // TODO: view Data
-  // TODO: Skeleton
-  // TODO: decrypt Password
-
   async function loadTransferData(): Promise<void> {
     if (!params.accessId) {
       navigate("/404");
       return;
     }
     if (loaded) {
-      console.log("loaded");
       return;
     }
 
@@ -41,20 +34,37 @@ function ViewTransfer() {
       .then((res) => {
         if (res.status === 202) {
           setData({
-            id: res.data.data._id,
+            id: res.data.data.id,
             accessId: res.data.data.accessId,
             creatorIP: res.data.data.creatorIP,
             visitorIP: res.data.data.visitorIP,
             password: res.data.data.password,
             expirationDate: res.data.data.expirationDate,
+            isViewed: res.data.data.isViewed,
           });
           setLoaded(true);
         }
       })
       .catch((err) => {
-        error(err);
+        error(err.response.data.message);
+        setBlocked(true);
         setLoaded(true);
       });
+  }
+
+  async function viewedTransfer() {
+    if (!params.accessId) {
+      navigate("/404");
+      return;
+    }
+    if (!loaded) {
+      return;
+    }
+
+    return await setTransferViewed(params.accessId).catch((err) => {
+      error(err.response.data.message);
+      setBlocked(true);
+    });
   }
 
   function viewPassword(): void {
@@ -68,9 +78,14 @@ function ViewTransfer() {
       return <TransferBlocked />;
     }
     if (state) {
-      return <ViewPassword />;
+      return <ViewPassword data={data} />;
     } else {
-      return <ConfirmationTransfer viewPassword={viewPassword} />;
+      return (
+        <ConfirmationTransfer
+          viewedTransfer={viewedTransfer}
+          viewPassword={viewPassword}
+        />
+      );
     }
   }
 }

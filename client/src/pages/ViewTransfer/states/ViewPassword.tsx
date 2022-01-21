@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { ReactComponent as Svg } from "../../../assets/svg/My password-cuate.svg";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link } from "react-router-dom";
+import { TransferView } from "../../../shared/types/Transfer.type";
 
-function ViewPassword() {
+interface Props {
+  data: TransferView | undefined;
+}
+
+function ViewPassword(props: Props) {
   const [copied, setCopied] = useState<boolean>(false);
-  // TODO: Display password
-
   return (
     <>
       <div>
@@ -32,13 +35,17 @@ function ViewPassword() {
                             <i className="mdi mdi-email-outline text-gray-400 text-lg"></i>
                           </div>
                           <input
-                            type="text"
+                            type="password"
                             readOnly
-                            defaultValue={"Password"}
+                            defaultValue={props.data?.password}
                             className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-l-lg border border-gray-200 outline-none focus:border-secondary-purple"
                           />
                           <CopyToClipboard
-                            text={"Password"}
+                            text={
+                              props.data?.password
+                                ? props.data?.password
+                                : "Undefined"
+                            }
                             onCopy={() => setCopied(true)}
                           >
                             <span className="cursor-pointer bg-primary-bg-darker hover:bg-white hover:text-primary-bg-dark duration-300 text-white bg-opacity-90 px-8 py-2 rounded-r-lg border border-gray-200 outline-none focus:border-secondary-purple">

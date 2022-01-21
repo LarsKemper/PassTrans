@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import { apiRoutes } from "./shared/enums/apiRoutes.enum";
+import { transferJob } from "./jobs/transfer.cron";
 
 // ROUTES IMPORT
 import transferRoutes from "./routes/transfer.routes";
@@ -17,6 +18,9 @@ app.use(express.json());
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// START CRONJOBS
+transferJob.start();
 
 // ROUTERS
 const API_BASE = process.env.API_BASE;

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 interface Props {
   viewPassword(): void;
+  viewedTransfer(): void;
 }
 
 function ConfirmationTransfer(props: Props) {
@@ -81,7 +82,10 @@ function ConfirmationTransfer(props: Props) {
                 <div className="w-full px-3 text-center">
                   <div className="space-x-5 flex p-2 xl:px-5">
                     <button
-                      onClick={props.viewPassword}
+                      onClick={() => {
+                        props.viewPassword();
+                        props.viewedTransfer();
+                      }}
                       className="w-full py-2 px-4 rounded-xl text-white bg-primary-bg-dark hover:bg-primary-bg-darker focus:outline-none transition duration-150 ease-in-out"
                     >
                       View Password
