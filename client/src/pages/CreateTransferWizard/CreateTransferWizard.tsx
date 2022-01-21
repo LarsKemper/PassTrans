@@ -62,7 +62,7 @@ function CreateTransferWizard() {
         }
       })
       .catch((err) => {
-        return error(err);
+        return error(err.response.data.message);
       });
   }
 

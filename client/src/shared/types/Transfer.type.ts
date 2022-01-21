@@ -18,3 +18,13 @@ export type TransferDto = {
   country: string;
   expirationDate: string | null;
 };
+
+export type TransferView = {
+  id: string;
+  accessId: string;
+  creatorIP: string;
+  visitorIP: string[] | undefined;
+  password: string;
+  expirationDate: string;
+  isViewed: boolean;
+};

@@ -1,6 +1,6 @@
 import { TransferDto } from "../shared/types/Transfer";
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+import CryptoJS from "crypto-js";
 
 const TransferSchema = new mongoose.Schema<TransferDto>(
   {
@@ -43,6 +43,13 @@ const TransferSchema = new mongoose.Schema<TransferDto>(
       type: String,
       required: [true, "Please type in a expiration date"],
     },
+    isViewed: {
+      type: Boolean,
+      default: false,
+    },
+    viewedDate: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );
@@ -52,9 +59,8 @@ TransferSchema.pre("save", function (next) {
     next();
   }
 
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(this.password, salt);
-
+  const HASH_KEY: string = process.env.HASH_KEY as string;
+  const hash = CryptoJS.AES.encrypt(this.password, HASH_KEY).toString();
   this.password = hash;
 
   next();
