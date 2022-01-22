@@ -1,6 +1,7 @@
 import { GenerateLinkOBJ } from "../shared/types/GenerateLinkOBJ";
+import { Config } from "../shared/enums/config.enum";
 
-const base = process.env.REACT_APP_URL_TRANSFER_LINK;
+const base = Config.TRANSFER_VIEW_LINK;
 
 function generateID(len: number): string {
   const maxlen = 8;

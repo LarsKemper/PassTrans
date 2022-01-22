@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProgressWizard from "../../../components/ProgressWizard";
 import { generateLink } from "../../../services/generateLink.service";
-import { GenerateLinkOBJ } from "../../../shared/types/GenerateLinkOBJ";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Transfer } from "../../../shared/types/Transfer.type";
 // SVGs
