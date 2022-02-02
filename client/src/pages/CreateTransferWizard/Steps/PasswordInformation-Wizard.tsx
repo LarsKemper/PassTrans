@@ -95,7 +95,7 @@ function PasswordInformation(props: TransferStep) {
                               getStrengthStyle();
                             }}
                             type="password"
-                            className={`${focusColor} text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none`}
+                            className={`${focusColor} text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-3 rounded-lg border border-gray-200 outline-none`}
                             placeholder="*************"
                             required
                           />
@@ -107,7 +107,7 @@ function PasswordInformation(props: TransferStep) {
                         <label htmlFor="" className="text-white text-xs px-1">
                           Password strength
                         </label>
-                        <div className="flex items-center border border-gray-200 h-10 w-full rounded-xl">
+                        <div className="flex items-center border border-gray-200 h-12 w-full rounded-xl">
                           <div
                             style={{ width: `${barLength}%` }}
                             className="duration-300 mx-4 inline-block h-auto bg-gradient-to-r from-secondary-purple-dark via-secondary-purple to-secondary-purple-light rounded-full p-2"
@@ -129,7 +129,7 @@ function PasswordInformation(props: TransferStep) {
                               props.handleChange(e, "expirationDate");
                             }}
                             type="date"
-                            className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                            className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-3 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
                             placeholder="************"
                             required
                           />

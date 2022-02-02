@@ -68,6 +68,7 @@ export const getTransfer = asyncHandler(async (req, res): Promise<void> => {
   const transferViewDto: TransferViewDto = {
     id: transfer.id,
     accessId: transfer.accessId,
+    status: transfer.status,
     creatorIP: transfer.creatorIP,
     visitorIP: transfer.visitorIP,
     password: decryptedHash,

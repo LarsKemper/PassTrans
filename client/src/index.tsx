@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import IndexRouter from "./routes/index";
-import { AlterContainer } from "./services/alert/AlertContainer";
+import { AlertContainer } from "./services/alert/AlertContainer";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AlterContainer />
+    <AlertContainer />
     <IndexRouter />
   </React.StrictMode>,
   document.getElementById("root")

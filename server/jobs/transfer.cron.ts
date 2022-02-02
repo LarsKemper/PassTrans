@@ -4,15 +4,15 @@ import Transfer from "../models/Transfer";
 export const transferJob = new cron.CronJob(
   "*/10 * * * *",
   () => {
-    deleteExpiredTransfers();
+    deleteViewedTransfers();
   },
   null,
   true,
   "Europe/Berlin"
 );
 
-// @DESC Delete all expired Transfers
-const deleteExpiredTransfers = async (): Promise<void> => {
+// @DESC Delete all viewed Transfers
+const deleteViewedTransfers = async (): Promise<void> => {
   const cutoff: Date = new Date();
   cutoff.setDate(cutoff.getDate() - 1);
 

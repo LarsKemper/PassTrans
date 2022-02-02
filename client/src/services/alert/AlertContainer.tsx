@@ -2,7 +2,7 @@ import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export function AlterContainer() {
+export function AlertContainer() {
   return (
     <ToastContainer
       position="top-right"

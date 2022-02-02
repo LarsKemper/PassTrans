@@ -1,0 +1,7 @@
+export enum TransferStatus {
+  ACTIV = "ACTIV",
+  BLOCKED = "BLOCKED",
+  VIEWED = "VIEWED",
+  EXPIRED = "EXPIRED",
+  PENDING_FOR_DELETION = "PENDING_FOR_DELETION",
+}

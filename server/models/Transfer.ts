@@ -1,3 +1,4 @@
+import { TransferStatus } from "./../../client/src/shared/enums/TransferStatus.enum";
 import { TransferDto } from "../shared/types/Transfer";
 import mongoose from "mongoose";
 import CryptoJS from "crypto-js";
@@ -8,6 +9,10 @@ const TransferSchema = new mongoose.Schema<TransferDto>(
       type: String,
       required: true,
       unique: true,
+    },
+    status: {
+      type: String,
+      default: TransferStatus.ACTIV,
     },
     creatorIP: {
       type: String,
@@ -49,6 +54,7 @@ const TransferSchema = new mongoose.Schema<TransferDto>(
     },
     viewedDate: {
       type: Date,
+      default: undefined,
     },
   },
   { timestamps: true }

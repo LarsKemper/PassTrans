@@ -1,8 +1,10 @@
+import { TransferStatus } from "./../../../client/src/shared/enums/TransferStatus.enum";
 import mongoose from "mongoose";
 
 export type TransferDto = {
   id: string;
   accessId: string;
+  status: string;
   creatorIP: string;
   visitorIP: [string] | undefined;
   firstName: string;
@@ -18,6 +20,7 @@ export type TransferDto = {
 export type TransferViewDto = {
   id: string;
   accessId: string;
+  status: string;
   creatorIP: string;
   visitorIP: string[] | undefined;
   password: string;

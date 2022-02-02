@@ -10,6 +10,9 @@ const CreateTransferWizard = lazy(
   () => import("../pages/CreateTransferWizard/CreateTransferWizard")
 );
 const ViewTransfer = lazy(() => import("../pages/ViewTransfer/ViewTransfer"));
+const TransferDashboard = lazy(
+  () => import("../pages/TransferDashboard/TransferDashboard")
+);
 
 function IndexRouter() {
   return (
@@ -24,6 +27,10 @@ function IndexRouter() {
           <Route
             path={frontendRoutes.VIEW_TRANSFER}
             element={<ViewTransfer />}
+          />
+          <Route
+            path={frontendRoutes.TRANSFER_DASHBOARD}
+            element={<TransferDashboard />}
           />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

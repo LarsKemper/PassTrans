@@ -9,6 +9,7 @@ module.exports = {
       colors: {
         primary: {
           "bg-darker": "#2D2B40",
+          "bg-darker-card": "#2a283b",
           "bg-dark": "#323044",
           "bg-light": "#3F3D56",
           dark: "#343047",
