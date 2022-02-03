@@ -48,7 +48,7 @@ function ViewPassword(props: Props) {
                             }
                             onCopy={() => setCopied(true)}
                           >
-                            <span className="cursor-pointer bg-primary-bg-darker hover:bg-white hover:text-primary-bg-dark duration-300 text-white bg-opacity-90 px-8 py-2 rounded-r-lg border border-gray-200 outline-none focus:border-secondary-purple">
+                            <span className="cursor-pointer bg-primary-bg-darker hover:bg-white hover:text-primary-bg-dark duration-300 text-white bg-opacity-90 px-8 py-3 rounded-r-lg border border-gray-200 outline-none focus:border-secondary-purple">
                               {copied ? (
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@ function ViewPassword(props: Props) {
                   <div className="flex p-2 xl:px-5">
                     <Link
                       to="/"
-                      className="w-full py-2 px-4 rounded-xl text-white bg-primary-bg-dark hover:bg-primary-bg-darker focus:outline-none transition duration-150 ease-in-out"
+                      className="w-full py-3 px-4 rounded-xl text-white bg-primary-bg-dark hover:bg-primary-bg-darker focus:outline-none transition duration-150 ease-in-out"
                     >
                       Back Home
                     </Link>

@@ -1,10 +1,30 @@
 import React, { useState } from "react";
+import AccessViewModal from "./AccessViewModal";
+import { Config } from "../shared/enums/config.enum";
 
 function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isTransferViewModalOpen, setIsTransferViewModalOpen] =
+    useState<boolean>(false);
+  const [isTransferDashboardModalOpen, setIsTransferDashboardModalOpen] =
+    useState<boolean>(false);
 
   return (
     <>
+      <AccessViewModal
+        isOpen={isTransferViewModalOpen}
+        closeModal={() => setIsTransferViewModalOpen(false)}
+        title="View your Transfer"
+        actionText="Access Transfer"
+        baseLink={Config.TRANSFER_VIEW_LINK}
+      />
+      <AccessViewModal
+        isOpen={isTransferDashboardModalOpen}
+        closeModal={() => setIsTransferDashboardModalOpen(false)}
+        title="View Dashboard"
+        actionText="Access Dashboard"
+        baseLink={Config.TRANSFER_DASHBOARD_LINK}
+      />
       <div className="px-4 py-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <div className="relative flex items-center justify-between">
           <span
@@ -30,43 +50,19 @@ function Nav() {
           </span>
           <ul className="flex items-center hidden space-x-8 lg:flex">
             <li>
-              <a
-                href="/"
-                aria-label="Our product"
-                title="Our product"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-300 hover:text-secondary-purple"
+              <span
+                onClick={() => setIsTransferViewModalOpen(true)}
+                className="cursor-pointer font-medium tracking-wide text-gray-100 transition-colors duration-300 hover:text-secondary-purple"
               >
-                Home
-              </a>
+                View Transfer
+              </span>
             </li>
-            <li>
+            <li className="cursor-pointer">
               <a
-                href="/"
-                aria-label="Product pricing"
-                title="Product pricing"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-300 hover:text-secondary-purple"
-              >
-                Support
-              </a>
-            </li>
-            <li>
-              <a
-                href="/"
-                aria-label="About us"
-                title="About us"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-300 hover:text-secondary-purple"
-              >
-                Sign in
-              </a>
-            </li>
-            <li>
-              <a
-                href="/"
+                onClick={() => setIsTransferDashboardModalOpen(true)}
                 className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-300 rounded shadow-md bg-secondary-purple hover:bg-secondary-purple-2 focus:shadow-outline focus:outline-none"
-                aria-label="Sign up"
-                title="Sign up"
               >
-                Sign up
+                Access Dashboard
               </a>
             </li>
           </ul>

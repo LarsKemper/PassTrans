@@ -39,7 +39,7 @@ function UserDetails(props: TransferStep) {
                             }}
                             defaultValue={props.values.firstName}
                             type="text"
-                            className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                            className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-3 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
                             placeholder="John"
                             required
                           />
@@ -59,7 +59,7 @@ function UserDetails(props: TransferStep) {
                             }}
                             defaultValue={props.values.lastName}
                             type="text"
-                            className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                            className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-3 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
                             placeholder="Smith"
                             required
                           />
@@ -81,7 +81,7 @@ function UserDetails(props: TransferStep) {
                             }}
                             defaultValue={props.values.email}
                             type="email"
-                            className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                            className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-3 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
                             placeholder="johnsmith@example.com"
                             required
                           />
@@ -103,7 +103,7 @@ function UserDetails(props: TransferStep) {
                             }}
                             defaultValue={props.values.country}
                             type="text"
-                            className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                            className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-3 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
                             placeholder="Germany"
                             required
                           />

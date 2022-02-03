@@ -1,3 +1,4 @@
+import { TransferStatus } from "./../shared/enums/transferStatus.enum";
 import asyncHandler from "express-async-handler";
 import { TransferDto, TransferViewDto } from "../shared/types/Transfer";
 import Transfer from "../models/Transfer";
@@ -44,18 +45,26 @@ export const getTransfer = asyncHandler(async (req, res): Promise<void> => {
     accessId: req.params.accessId,
   });
 
-  if (!transfer) {
+  if (!transfer || transfer.status === TransferStatus.PENDING_FOR_DELETION) {
     res.status(404).json({ message: "Transfer not found!" });
     return;
   }
 
-  if (isExpired(transfer.expirationDate)) {
+  if (
+    isExpired(transfer.expirationDate) ||
+    transfer.status === TransferStatus.EXPIRED
+  ) {
     res.status(401).json({ message: "Transfer is expired!" });
     return;
   }
 
-  if (transfer.isViewed) {
+  if (transfer.isViewed || transfer.status === TransferStatus.VIEWED) {
     res.status(401).json({ message: "Transfer was already viewed!" });
+    return;
+  }
+
+  if (transfer.status === TransferStatus.BLOCKED) {
+    res.status(401).json({ message: "Transfer was blocked!" });
     return;
   }
 
@@ -68,11 +77,13 @@ export const getTransfer = asyncHandler(async (req, res): Promise<void> => {
   const transferViewDto: TransferViewDto = {
     id: transfer.id,
     accessId: transfer.accessId,
+    status: transfer.status,
     creatorIP: transfer.creatorIP,
     visitorIP: transfer.visitorIP,
     password: decryptedHash,
     expirationDate: transfer.expirationDate,
     isViewed: transfer.isViewed,
+    viewedDate: transfer.viewedDate,
   };
 
   res.status(202).json({ success: true, data: transferViewDto });

@@ -40,7 +40,6 @@ function ViewTransfer() {
             visitorIP: res.data.data.visitorIP,
             password: res.data.data.password,
             expirationDate: res.data.data.expirationDate,
-            isViewed: res.data.data.isViewed,
           });
           setLoaded(true);
         }

@@ -86,13 +86,13 @@ function ConfirmationTransfer(props: Props) {
                         props.viewPassword();
                         props.viewedTransfer();
                       }}
-                      className="w-full py-2 px-4 rounded-xl text-white bg-primary-bg-dark hover:bg-primary-bg-darker focus:outline-none transition duration-150 ease-in-out"
+                      className="w-full py-3 px-4 rounded-xl text-white bg-primary-bg-dark hover:bg-primary-bg-darker focus:outline-none transition duration-150 ease-in-out"
                     >
                       View Password
                     </button>
                     <Link
                       to="/"
-                      className="w-full py-2 px-4 rounded-xl text-white bg-red-700 hover:bg-red-900 focus:outline-none transition duration-150 ease-in-out"
+                      className="w-full py-3 px-4 rounded-xl text-white bg-red-700 hover:bg-red-900 focus:outline-none transition duration-150 ease-in-out"
                     >
                       Back Home
                     </Link>

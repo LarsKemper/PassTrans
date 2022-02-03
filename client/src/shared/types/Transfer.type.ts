@@ -26,5 +26,4 @@ export type TransferView = {
   visitorIP: string[] | undefined;
   password: string;
   expirationDate: string;
-  isViewed: boolean;
 };

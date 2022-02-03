@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProgressWizard from "../../../components/ProgressWizard";
 import { generateLink } from "../../../services/generateLink.service";
-import { GenerateLinkOBJ } from "../../../shared/types/GenerateLinkOBJ";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Transfer } from "../../../shared/types/Transfer.type";
 // SVGs
@@ -69,13 +68,13 @@ function TransferLink(props: TransferLink) {
                           type="text"
                           readOnly
                           defaultValue={transferLink}
-                          className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-l-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                          className="text-white bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-3 rounded-l-lg border border-gray-200 outline-none focus:border-secondary-purple"
                         />
                         <CopyToClipboard
                           text={transferLink}
                           onCopy={() => setCopied(true)}
                         >
-                          <span className="bg-primary-bg-darker hover:bg-white hover:text-primary-bg-dark duration-300 text-white bg-opacity-90 px-8 py-2 rounded-r-lg border border-gray-200 outline-none focus:border-secondary-purple">
+                          <span className="cursor-pointer flex items-center bg-primary-bg-darker hover:bg-white hover:text-primary-bg-dark duration-300 text-white bg-opacity-90 px-8 py-2 rounded-r-lg border border-gray-200 outline-none focus:border-secondary-purple">
                             {copied ? (
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +112,7 @@ function TransferLink(props: TransferLink) {
                           className="group w-full -ml-10 cursor-pointer bg-primary-bg-darker bg-opacity-90 "
                           url={transferLink}
                         >
-                          <div className="duration-300 hover:bg-white flex justify-center items-center w-full pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple">
+                          <div className="duration-300 hover:bg-white flex justify-center items-center w-full pr-3 py-3 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple">
                             <FacebookSvg className="w-6 h-6 group-hover:fill-primary-bg-dark fill-white stroke-transparent" />
                           </div>
                         </FacebookShareButton>
@@ -132,7 +131,7 @@ function TransferLink(props: TransferLink) {
                           className="group w-full -ml-10 cursor-pointer bg-primary-bg-darker bg-opacity-90 "
                           url={transferLink}
                         >
-                          <div className="duration-300 hover:bg-white flex justify-center items-center w-full pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple">
+                          <div className="duration-300 hover:bg-white flex justify-center items-center w-full pr-3 py-3 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple">
                             <EmailSvg className="w-6 h-6 group-hover:fill-primary-bg-dark fill-white stroke-transparent" />
                           </div>
                         </EmailShareButton>
@@ -152,7 +151,7 @@ function TransferLink(props: TransferLink) {
                           className="group w-full -ml-10 cursor-pointer bg-primary-bg-darker bg-opacity-90 "
                           url={transferLink}
                         >
-                          <div className="duration-300 hover:bg-white flex justify-center items-center w-full pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple">
+                          <div className="duration-300 hover:bg-white flex justify-center items-center w-full pr-3 py-3 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple">
                             <WhatsappSvg className="w-6 h-6 group-hover:fill-primary-bg-dark fill-white stroke-transparent" />
                           </div>
                         </WhatsappShareButton>
@@ -170,7 +169,7 @@ function TransferLink(props: TransferLink) {
                         </div>
                         <input
                           type="password"
-                          className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                          className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-3 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
                           placeholder="************"
                         />
                       </div>
