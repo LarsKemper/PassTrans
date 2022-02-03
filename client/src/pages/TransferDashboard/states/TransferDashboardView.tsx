@@ -6,14 +6,14 @@ import {
 } from "../../../shared/enums/TransferStatus.enum";
 import TransferInformationModal from "../../../components/TransferDashboard/TransferInformationModal";
 import TransferControlModal from "../../../components/TransferDashboard/TransferControlModal";
-import { TransferView } from "../../../shared/types/Transfer.type";
+import { DashboardDto } from "../../../shared/types/Dashboard.types";
 
 interface Props {
-  transfer: TransferView;
+  transfer: DashboardDto;
+  changeTransferStatus(newStatus: string): Promise<void>;
 }
 
 function TransferDashboardView(props: Props) {
-  console.log(props);
   const [isInformationModalOpen, setIsInformationModalOpen] =
     useState<boolean>(false);
   const [isControlModalOpen, setIsControlModalOpen] = useState<boolean>(false);
@@ -28,7 +28,8 @@ function TransferDashboardView(props: Props) {
       <TransferControlModal
         isOpen={isControlModalOpen}
         closeModal={() => setIsControlModalOpen(false)}
-        status={TransferStatus.ACTIV}
+        status={props.transfer.status}
+        changeTransferStatus={props.changeTransferStatus}
       />
       <div className="min-w-screen relative overflow-hidden min-h-screen bg-gradient-to-br from-primary-bg-light to-primary-bg-dark flex items-center justify-center px-5 py-5">
         <div
@@ -84,14 +85,9 @@ function TransferDashboardView(props: Props) {
               </div>
               <div className="mr-4 box row-start-3 row-end-5 col-start-1 col-end-2">
                 <div className="flex-col justify-center items-center w-full rounded-xl bg-primary-bg-darker-card mt-8 p-8">
-                  <TransferStatusIndicator
-                    status={TransferStatus.PENDING_FOR_DELETION}
-                  />
+                  <TransferStatusIndicator status={props.transfer.status} />
                   <p className="text-white text-justify text-lg mt-5">
-                    {
-                      getTransferStatusSpec(TransferStatus.PENDING_FOR_DELETION)
-                        .desc
-                    }
+                    {getTransferStatusSpec(props.transfer.status).desc}
                   </p>
                 </div>
               </div>

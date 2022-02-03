@@ -21,7 +21,7 @@ function Nav() {
       <AccessViewModal
         isOpen={isTransferDashboardModalOpen}
         closeModal={() => setIsTransferDashboardModalOpen(false)}
-        title="View Dashbaord"
+        title="View Dashboard"
         actionText="Access Dashboard"
         baseLink={Config.TRANSFER_DASHBOARD_LINK}
       />
@@ -57,22 +57,12 @@ function Nav() {
                 View Transfer
               </span>
             </li>
-            <li>
-              <span
-                onClick={() => setIsTransferDashboardModalOpen(true)}
-                className="cursor-pointer font-medium tracking-wide text-gray-100 transition-colors duration-300 hover:text-secondary-purple"
-              >
-                Access Dashbaord
-              </span>
-            </li>
-            <li>
+            <li className="cursor-pointer">
               <a
-                href="/"
+                onClick={() => setIsTransferDashboardModalOpen(true)}
                 className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-300 rounded shadow-md bg-secondary-purple hover:bg-secondary-purple-2 focus:shadow-outline focus:outline-none"
-                aria-label="Sign up"
-                title="Sign up"
               >
-                Sign up
+                Access Dashboard
               </a>
             </li>
           </ul>

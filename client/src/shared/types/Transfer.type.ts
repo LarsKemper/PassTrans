@@ -22,10 +22,8 @@ export type TransferDto = {
 export type TransferView = {
   id: string;
   accessId: string;
-  status: string;
   creatorIP: string;
   visitorIP: string[] | undefined;
   password: string;
   expirationDate: string;
-  isViewed: boolean;
 };

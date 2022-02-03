@@ -24,3 +24,6 @@ const deleteViewedTransfers = async (): Promise<void> => {
     transfers.forEach((x) => x.remove());
   });
 };
+
+// TODO: Delete all expired Transfers ~older than x
+// TODO: Cron that changes the Transfer Status

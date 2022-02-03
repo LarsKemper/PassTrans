@@ -9,6 +9,7 @@ import { transferJob } from "./jobs/transfer.cron";
 
 // ROUTES IMPORT
 import transferRoutes from "./routes/transfer.routes";
+import dashboardRoutes from "./routes/dashboard.routes";
 
 const app: Express = express();
 
@@ -24,8 +25,8 @@ transferJob.start();
 
 // ROUTERS
 const API_BASE = process.env.API_BASE;
-// TRANSFER ROUTER
 app.use(API_BASE + apiRoutes.TRANSFER, transferRoutes);
+app.use(API_BASE + apiRoutes.DASHBOARD, dashboardRoutes);
 
 // START
 const CONNECTION_URL: any = process.env.DB_URL;

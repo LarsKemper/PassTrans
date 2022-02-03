@@ -8,7 +8,8 @@ import { ControlElementType } from "../../shared/enums/controlElementType.enum";
 interface Props {
   isOpen: boolean;
   closeModal(): void;
-  status: TransferStatus;
+  status: string;
+  changeTransferStatus(newStatus: string): Promise<void>;
 }
 
 function TransferControlModal(props: Props) {
@@ -71,19 +72,32 @@ function TransferControlModal(props: Props) {
                           type={ControlElementType.BLOCK}
                           title="Block"
                           desc="After you have blocked your transfer, it will not be available to anyone but you."
-                          selected={false}
+                          selected={
+                            props.status === TransferStatus.BLOCKED
+                              ? true
+                              : false
+                          }
+                          changeTransferStatus={props.changeTransferStatus}
                         />
                         <TransferControlElement
                           type={ControlElementType.ACTIV}
                           title="Activ"
                           desc="By default, your transfer is active and thus accessible via your access link"
-                          selected={true}
+                          selected={
+                            props.status === TransferStatus.ACTIV ? true : false
+                          }
+                          changeTransferStatus={props.changeTransferStatus}
                         />
                         <TransferControlElement
                           type={ControlElementType.DELETE}
                           title="Delete"
                           desc="After you delete your transfer it will be irrevocably deleted from our servers."
-                          selected={false}
+                          selected={
+                            props.status === TransferStatus.PENDING_FOR_DELETION
+                              ? true
+                              : false
+                          }
+                          changeTransferStatus={props.changeTransferStatus}
                         />
                       </div>
                     </form>

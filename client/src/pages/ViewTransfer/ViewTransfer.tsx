@@ -36,12 +36,10 @@ function ViewTransfer() {
           setData({
             id: res.data.data.id,
             accessId: res.data.data.accessId,
-            status: res.data.data.status,
             creatorIP: res.data.data.creatorIP,
             visitorIP: res.data.data.visitorIP,
             password: res.data.data.password,
             expirationDate: res.data.data.expirationDate,
-            isViewed: res.data.data.isViewed,
           });
           setLoaded(true);
         }

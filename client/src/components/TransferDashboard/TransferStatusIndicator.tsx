@@ -5,7 +5,7 @@ import {
 } from "../../shared/enums/TransferStatus.enum";
 
 interface Props {
-  status: TransferStatus;
+  status: string;
 }
 
 function TransferStatusIndicator(props: Props) {

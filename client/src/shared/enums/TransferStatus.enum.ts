@@ -14,16 +14,9 @@ interface TransferStatusSpec {
 }
 
 export function getTransferStatusSpec(
-  transferStatus: TransferStatus
+  transferStatus: string
 ): TransferStatusSpec {
   switch (transferStatus) {
-    case TransferStatus.ACTIV:
-      return {
-        tag: "ACTIV",
-        title: "Activ",
-        gradient: "bg-gradient-to-br from-green-600 to-lime-400",
-        desc: "At the moment your password transfer is still active. This means that no one has received the password yet.",
-      };
     case TransferStatus.BLOCKED:
       return {
         tag: "BLOCKED",
@@ -45,7 +38,7 @@ export function getTransferStatusSpec(
         title: "Expired",
         gradient:
           "bg-gradient-to-tl from-fuchsia-300 via-purple-400 to-purple-900",
-        desc: "The expiration date you set has passed which means that your password transfer is no longer available. You can reactivate this transfer.",
+        desc: "The expiration date you set has passed which means that your password transfer is no longer available. You can not reactivate this transfer.",
       };
     case TransferStatus.PENDING_FOR_DELETION:
       return {
@@ -54,6 +47,20 @@ export function getTransferStatusSpec(
         gradient:
           "bg-gradient-to-tl from-yellow-300 via-amber-400 to-amber-700",
         desc: "Your password transfer will be deleted from our servers within the next 10 minutes. After that it is no longer accessible and unrecoverable. ",
+      };
+    case TransferStatus.ACTIV:
+      return {
+        tag: "ACTIV",
+        title: "Activ",
+        gradient: "bg-gradient-to-br from-green-600 to-lime-400",
+        desc: "At the moment your password transfer is still active. This means that no one has received the password yet.",
+      };
+    default:
+      return {
+        tag: "ACTIV",
+        title: "Activ",
+        gradient: "bg-gradient-to-br from-green-600 to-lime-400",
+        desc: "At the moment your password transfer is still active. This means that no one has received the password yet.",
       };
   }
 }

@@ -1,15 +1,32 @@
 import React, { Fragment } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import { ReactComponent as Svg } from "../../assets/svg/back-arrow.svg";
-import { TransferView } from "../../shared/types/Transfer.type";
+import moment from "moment";
+import { DashboardDto } from "../../shared/types/Dashboard.types";
 
 interface Props {
   isOpen: boolean;
   closeModal(): void;
-  transfer: TransferView;
+  transfer: DashboardDto;
 }
 
 function TransferInformationModal(props: Props) {
+  function getTimeLeft(): string {
+    const past = moment(
+      moment(props.transfer.expirationDate),
+      "DD-MM-YYYY HH:mm"
+    );
+
+    return (
+      Math.floor(moment().diff(past, "minutes") / 1440) * -1 +
+      " day(s) " +
+      Math.floor((moment().diff(past, "minutes") % 1440) / 60) * -1 +
+      "h " +
+      Math.floor((moment().diff(past, "minutes") % 1440) % 60) * -1 +
+      "m"
+    );
+  }
+
   return (
     <>
       <Transition appear show={props.isOpen} as={Fragment}>
@@ -99,7 +116,11 @@ function TransferInformationModal(props: Props) {
                                 {props.transfer.visitorIP &&
                                 props.transfer.visitorIP.length >= 1
                                   ? props.transfer.visitorIP.map((ip) => {
-                                      return <span key={ip}>{ip}</span>;
+                                      return (
+                                        <span key={ip}>
+                                          {ip} <br />
+                                        </span>
+                                      );
                                     })
                                   : "~No visitor until now"}
                               </p>
@@ -129,7 +150,13 @@ function TransferInformationModal(props: Props) {
                                 View at
                               </h6>
                               <p className="text-base text-gray-400">
-                                A flower in my garden, a mystery in my
+                                {props.transfer.viewedDate
+                                  ? moment(props.transfer.viewedDate).format(
+                                      "MM/DD/YYYY"
+                                    ) +
+                                    " ~ " +
+                                    moment(props.transfer.viewedDate).fromNow()
+                                  : "~No visitor unitl now"}
                               </p>
                             </div>
                           </div>
@@ -159,7 +186,10 @@ function TransferInformationModal(props: Props) {
                                 Time left
                               </h6>
                               <p className="text-base text-gray-400">
-                                A flower in my garden, a mystery in my
+                                {props.transfer.expirationDate &&
+                                moment().isAfter(props.transfer.expirationDate)
+                                  ? "~Time has expired"
+                                  : getTimeLeft() + " left"}
                               </p>
                             </div>
                           </div>
@@ -187,7 +217,14 @@ function TransferInformationModal(props: Props) {
                                 Credentials
                               </h6>
                               <p className="text-base text-gray-400">
-                                A flower in my garden, a mystery in my
+                                <span>
+                                  accessID: {props.transfer.accessId}
+                                  <br />
+                                </span>
+                                <span>
+                                  password:{" "}
+                                  {"*".repeat(props.transfer.password.length)}
+                                </span>
                               </p>
                             </div>
                           </div>

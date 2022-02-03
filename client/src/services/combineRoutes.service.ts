@@ -6,9 +6,9 @@ export const combineRoutes = (
   additionalRoute: apiRoutes,
   token?: string
 ): string => {
+  let route = API_BASE + additionalRoute;
   if (token) {
-    return API_BASE + additionalRoute + token;
-  } else {
-    return API_BASE + additionalRoute;
+    route = route + token;
   }
+  return route;
 };

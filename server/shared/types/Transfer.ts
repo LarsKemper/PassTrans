@@ -26,4 +26,5 @@ export type TransferViewDto = {
   password: string;
   expirationDate: string;
   isViewed: boolean;
+  viewedDate: Date | undefined;
 };

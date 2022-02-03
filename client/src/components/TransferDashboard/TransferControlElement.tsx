@@ -1,16 +1,31 @@
 import React from "react";
 import { ControlElementType } from "../../shared/enums/controlElementType.enum";
+import { TransferStatus } from "../../shared/enums/TransferStatus.enum";
 
 interface Props {
   type: ControlElementType;
   title: string;
   desc: string;
   selected: boolean;
+  changeTransferStatus(newStatus: string): Promise<void>;
 }
 
 function TransferControlElement(props: Props) {
+  function changeStatus() {
+    props.changeTransferStatus(
+      props.type === ControlElementType.ACTIV
+        ? TransferStatus.ACTIV
+        : props.type === ControlElementType.BLOCK
+        ? TransferStatus.BLOCKED
+        : props.type === ControlElementType.DELETE
+        ? TransferStatus.PENDING_FOR_DELETION
+        : TransferStatus.ACTIV
+    );
+  }
+
   return (
     <div
+      onClick={changeStatus}
       className={`${
         props.type === ControlElementType.ACTIV
           ? "hover:border-green-500 hover:bg-green-500"
