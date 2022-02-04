@@ -1,4 +1,4 @@
-import { DashboardDto } from "./../../client/src/shared/types/Dashboard.types";
+import { DashboardDto } from "./../shared/types/Dashboard";
 import asyncHandler from "express-async-handler";
 import Transfer from "../models/Transfer";
 import { TransferDto } from "../shared/types/Transfer";
@@ -47,7 +47,6 @@ export const getDashboard = asyncHandler(async (req, res): Promise<void> => {
     password: decryptedHash,
     country: transfer.country,
     expirationDate: transfer.expirationDate,
-    isViewed: transfer.isViewed,
     viewedDate: transfer.viewedDate,
   };
 
@@ -111,7 +110,6 @@ export const changeStatus = asyncHandler(async (req, res): Promise<void> => {
     country: transfer.country,
     password: decryptedHash,
     expirationDate: transfer.expirationDate,
-    isViewed: transfer.isViewed,
     viewedDate: transfer.viewedDate,
   };
 

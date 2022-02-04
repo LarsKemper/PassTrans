@@ -41,7 +41,6 @@ function TransferDashboard() {
             password: res.data.data.password,
             country: res.data.data.country,
             expirationDate: res.data.data.expirationDate,
-            isViewed: res.data.data.isViewed,
             viewedDate: res.data.data.viewedDate,
           });
           setLoaded(true);
@@ -60,7 +59,8 @@ function TransferDashboard() {
     }
     if (
       data?.status === TransferStatus.VIEWED ||
-      data?.status === TransferStatus.EXPIRED
+      data?.status === TransferStatus.EXPIRED ||
+      data?.status === TransferStatus.PENDING_FOR_DELETION
     ) {
       error(
         "With the current status of your transfer it is no longer possible to change it!"
@@ -83,7 +83,6 @@ function TransferDashboard() {
             password: res.data.data.password,
             country: res.data.data.country,
             expirationDate: res.data.data.expirationDate,
-            isViewed: res.data.data.isViewed,
             viewedDate: res.data.data.viewedDate,
           });
         }

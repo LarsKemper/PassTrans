@@ -45,12 +45,8 @@ const TransferSchema = new mongoose.Schema<TransferDto>(
       required: [true, "Please type in a country"],
     },
     expirationDate: {
-      type: String,
+      type: Date,
       required: [true, "Please type in a expiration date"],
-    },
-    isViewed: {
-      type: Boolean,
-      default: false,
     },
     viewedDate: {
       type: Date,

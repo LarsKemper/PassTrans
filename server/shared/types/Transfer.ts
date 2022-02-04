@@ -12,8 +12,7 @@ export type TransferDto = {
   email: string;
   password: string;
   country: string;
-  expirationDate: string;
-  isViewed: boolean;
+  expirationDate: Date;
   viewedDate: Date | undefined;
 };
 
@@ -24,7 +23,6 @@ export type TransferViewDto = {
   creatorIP: string;
   visitorIP: string[] | undefined;
   password: string;
-  expirationDate: string;
-  isViewed: boolean;
+  expirationDate: Date;
   viewedDate: Date | undefined;
 };

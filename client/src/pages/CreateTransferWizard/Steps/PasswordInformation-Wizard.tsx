@@ -43,7 +43,7 @@ function PasswordInformation(props: TransferStep) {
     props.nextStep();
   }
 
-  function isDateinPast(inputDate: string | null): boolean {
+  function isDateinPast(inputDate: Date | null): boolean {
     if (!inputDate) {
       return false;
     }

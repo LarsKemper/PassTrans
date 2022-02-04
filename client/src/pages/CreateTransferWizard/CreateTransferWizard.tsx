@@ -44,6 +44,11 @@ function CreateTransferWizard() {
   }
 
   async function handleSubmit() {
+    if (!state.expirationDate) {
+      error("Please enter a expiration Date");
+      return;
+    }
+
     const transferDto: TransferDto = {
       accessId: state.accessId,
       firstName: state.firstName,
@@ -51,7 +56,7 @@ function CreateTransferWizard() {
       email: state.email,
       password: state.password,
       country: state.country,
-      expirationDate: state.expirationDate,
+      expirationDate: new Date(state.expirationDate),
     };
 
     await createTransfer(transferDto)
