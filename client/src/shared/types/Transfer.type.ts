@@ -5,7 +5,7 @@ export type Transfer = {
   firstName: string;
   lastName: string;
   country: string;
-  expirationDate: string | null;
+  expirationDate: Date | null;
   accessId: string;
 };
 
@@ -16,7 +16,7 @@ export type TransferDto = {
   email: string;
   password: string;
   country: string;
-  expirationDate: string | null;
+  expirationDate: Date | null;
 };
 
 export type TransferView = {
@@ -25,5 +25,5 @@ export type TransferView = {
   creatorIP: string;
   visitorIP: string[] | undefined;
   password: string;
-  expirationDate: string;
+  expirationDate: Date;
 };

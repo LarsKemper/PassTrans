@@ -3,9 +3,10 @@ import cron from "cron";
 import Transfer from "../models/Transfer";
 
 export const transferJob = new cron.CronJob(
-  "*/10 * * * *",
+  "*/1 * * * *",
   () => {
     deleteTransfers();
+    changeExpiredTransfersStatus();
     changeTransfersStatus();
   },
   null,
@@ -13,21 +14,23 @@ export const transferJob = new cron.CronJob(
   "Europe/Berlin"
 );
 
-// @DESC Change state of all viewed Transfers
+// @DESC set Viewed/Expired transfers after 1 day to PENDING_FOR_DELETION
 const changeTransfersStatus = async (): Promise<void> => {
   const cutoff: Date = new Date();
   cutoff.setDate(cutoff.getDate() - 1);
 
-  // set Viewed transfers after 1 day to PENDING_FOR_DELETION
-  // set Expired transfers to PENDING_FOR_DELETION
   await Transfer.updateMany(
     {
-      $and: [
-        { isViewed: true },
-        { viewedDate: { $lte: cutoff } },
+      $or: [
         {
-          $or: [
+          $and: [
+            { expirationDate: { $lte: cutoff } },
             { status: TransferStatus.EXPIRED },
+          ],
+        },
+        {
+          $and: [
+            { viewedDate: { $lte: cutoff } },
             { status: TransferStatus.VIEWED },
           ],
         },
@@ -41,7 +44,29 @@ const changeTransfersStatus = async (): Promise<void> => {
   });
 };
 
-// @DESC Delete all Transfers pending for deletion
+// @DESC set Expired transfet to EXPIRED
+const changeExpiredTransfersStatus = async (): Promise<void> => {
+  await Transfer.updateMany(
+    {
+      $and: [
+        {
+          $or: [
+            { status: TransferStatus.ACTIV },
+            { status: TransferStatus.BLOCKED },
+          ],
+        },
+        { expirationDate: { $lte: new Date() } },
+      ],
+    },
+    {
+      $set: { status: TransferStatus.EXPIRED },
+    }
+  ).catch((err) => {
+    console.log(err);
+  });
+};
+
+// @DESC Delete all Transfers PENDING_FOR_DELETION
 const deleteTransfers = async (): Promise<void> => {
   await Transfer.deleteMany({
     status: TransferStatus.PENDING_FOR_DELETION,

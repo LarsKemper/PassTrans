@@ -58,7 +58,7 @@ export const getTransfer = asyncHandler(async (req, res): Promise<void> => {
     return;
   }
 
-  if (transfer.isViewed || transfer.status === TransferStatus.VIEWED) {
+  if (transfer.status === TransferStatus.VIEWED) {
     res.status(401).json({ message: "Transfer was already viewed!" });
     return;
   }
@@ -82,7 +82,6 @@ export const getTransfer = asyncHandler(async (req, res): Promise<void> => {
     visitorIP: transfer.visitorIP,
     password: decryptedHash,
     expirationDate: transfer.expirationDate,
-    isViewed: transfer.isViewed,
     viewedDate: transfer.viewedDate,
   };
 
@@ -109,7 +108,6 @@ export const setTransferViewed = asyncHandler(
     transfer = await Transfer.findByIdAndUpdate(
       transfer.id,
       {
-        isViewed: true,
         visitorIP: transfer.visitorIP?.push(typeof ip === "string" ? ip : ""),
         viewedDate: new Date(),
         status: TransferStatus.VIEWED,
