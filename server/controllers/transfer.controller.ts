@@ -112,6 +112,7 @@ export const setTransferViewed = asyncHandler(
         isViewed: true,
         visitorIP: transfer.visitorIP?.push(typeof ip === "string" ? ip : ""),
         viewedDate: new Date(),
+        status: TransferStatus.VIEWED,
       },
       {
         new: true,
