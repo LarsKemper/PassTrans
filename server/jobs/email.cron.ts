@@ -25,6 +25,7 @@ const sendEmailIfUpdated = async (): Promise<void> => {
     .then((transfers) => {
       transfers.forEach((transfer) => {
         transfer.updateOne({ updateStatus: false });
+        transfer.save();
         sendMail(
           mailType.STATUS_UPDATE,
           transfer.email,
