@@ -4,6 +4,8 @@ import { TransferDto, TransferViewDto } from "../shared/types/Transfer";
 import Transfer from "../models/Transfer";
 import { isExpired } from "../services/isExpired.service";
 import CryptoJS from "crypto-js";
+import { sendMail } from "../services/mailer.service";
+import { mailType } from "../shared/enums/mailTypes.enum";
 
 // @DESC Create Password Transfer
 // @ROUTE /api/v1/transfer
@@ -30,6 +32,13 @@ export const createTransfer = asyncHandler(async (req, res): Promise<void> => {
     country: req.body.country,
     expirationDate: req.body.expirationDate,
   });
+
+  sendMail(
+    mailType.CREATED,
+    transfer.email,
+    transfer.accessId,
+    transfer.status
+  );
 
   res.status(201).json({
     success: true,

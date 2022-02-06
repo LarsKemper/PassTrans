@@ -48,6 +48,7 @@ export const getDashboard = asyncHandler(async (req, res): Promise<void> => {
     country: transfer.country,
     expirationDate: transfer.expirationDate,
     viewedDate: transfer.viewedDate,
+    statusUpdated: transfer.statusUpdated,
   };
 
   res.status(202).json({ success: true, data: transferDto });

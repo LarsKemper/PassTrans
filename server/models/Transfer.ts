@@ -52,6 +52,10 @@ const TransferSchema = new mongoose.Schema<TransferDto>(
       type: Date,
       default: undefined,
     },
+    statusUpdated: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

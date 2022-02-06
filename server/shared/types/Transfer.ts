@@ -14,6 +14,7 @@ export type TransferDto = {
   country: string;
   expirationDate: Date;
   viewedDate: Date | undefined;
+  statusUpdated: boolean;
 };
 
 export type TransferViewDto = {
