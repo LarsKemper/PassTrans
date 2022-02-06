@@ -2,8 +2,8 @@ import { TransferStatus } from "./../../client/src/shared/enums/TransferStatus.e
 import cron from "cron";
 import Transfer from "../models/Transfer";
 
-export const transferJob = new cron.CronJob(
-  "*/1 * * * *",
+export const transferStatusJob = new cron.CronJob(
+  "*/10 * * * *",
   () => {
     deleteTransfers();
     changeExpiredTransfersStatus();
