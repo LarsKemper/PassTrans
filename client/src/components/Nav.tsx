@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import AccessViewModal from "./AccessViewModal";
 import { Config } from "../shared/enums/config.enum";
+import { ReactComponent as Logo } from "../assets/logo/logo.svg";
+import { Link } from "react-router-dom";
 
 function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -28,25 +30,13 @@ function Nav() {
       <div className="px-4 py-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <div className="relative flex items-center justify-between">
           <span
-            aria-label="Company"
-            title="Company"
-            className="inline-flex items-center"
+            aria-label="PassTrans"
+            title="PassTrans"
+            className="cursor-pointer inline-flex items-center"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-8 text-secondary-purple"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span className="cursor-pointer duration-300 hover:text-secondary-purple ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
-              PassTrans
-            </span>
+            <Link to="/">
+              <Logo className="-ml-12 h-8 hover:scale-105 duration-300" />
+            </Link>
           </span>
           <ul className="flex items-center hidden space-x-8 lg:flex">
             <li>
