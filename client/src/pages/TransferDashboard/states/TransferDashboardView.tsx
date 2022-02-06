@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import TransferStatusIndicator from "../../../components/TransferDashboard/TransferStatusIndicator";
-import {
-  getTransferStatusSpec,
-  TransferStatus,
-} from "../../../shared/enums/TransferStatus.enum";
+import { getTransferStatusSpec } from "../../../shared/enums/TransferStatus.enum";
 import TransferInformationModal from "../../../components/TransferDashboard/TransferInformationModal";
 import TransferControlModal from "../../../components/TransferDashboard/TransferControlModal";
 import { DashboardDto } from "../../../shared/types/Dashboard.types";
