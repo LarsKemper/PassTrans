@@ -11,7 +11,7 @@ export const mailType = {
 export function getTemplate(
   type: string,
   accessId: string,
-  status: string
+  status: string | number
 ): string {
   switch (type) {
     case mailType.CREATED:

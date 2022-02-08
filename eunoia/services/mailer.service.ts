@@ -12,9 +12,10 @@ export const sendMail = async (
   type: string,
   receiver: string,
   accessId: string,
-  status: string
+  status: string | number
 ): Promise<void> => {
   if (process.env.MAIL_ISSENDING !== "true") {
+    console.log("MAIL NOT SENDED");
     return;
   }
 

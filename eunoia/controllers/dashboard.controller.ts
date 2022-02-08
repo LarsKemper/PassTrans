@@ -1,8 +1,63 @@
+import { mailType } from "./../shared/enums/mailTypes.enum";
+import { sendMail } from "./../services/mailer.service";
 import { DashboardDto } from "./../shared/types/Dashboard";
 import asyncHandler from "express-async-handler";
 import Transfer from "../models/Transfer";
-import { TransferDto } from "../shared/types/Transfer";
+import { TransferDto, TransferType } from "../shared/types/Transfer";
 import CryptoJS from "crypto-js";
+import crypto from "crypto";
+
+// @DESC Request Access to Transfer Dashboard Informations
+// @ROUTE /api/dashboard/request
+// @METHOD POST
+export const requestDashboard = asyncHandler(
+  async (req, res): Promise<void> => {
+    const requestToken = crypto.randomBytes(20).toString("hex");
+    const hash = crypto.createHash("sha256").update(requestToken).digest("hex");
+
+    const transfer = await Transfer.findOne({
+      accessId: req.body.accessId,
+    });
+
+    if (!transfer) {
+      res.status(401).json({ message: "Transfer not found" });
+      return;
+    }
+
+    transfer.requestCode = Math.floor(1000 + Math.random() * 9000);
+    transfer.requestToken = hash;
+    transfer.expiredRequestToken = new Date().setHours(
+      new Date().getHours() + 1
+    );
+    await transfer.save();
+
+    try {
+      sendMail(
+        mailType.VERIFICATION,
+        transfer.email,
+        transfer.accessId,
+        transfer.requestCode
+      );
+
+      res
+        .status(201)
+        .json({ success: true, message: "Check your emails to continue" });
+    } catch (err) {
+      transfer.requestCode = undefined;
+      transfer.requestToken = undefined;
+      transfer.expiredRequestToken = undefined;
+      await transfer.save({ validateBeforeSave: false });
+
+      res.status(401).json({ message: "Something gone wrong" });
+    }
+    sendMail(
+      mailType.VERIFICATION,
+      transfer.email,
+      transfer.accessId,
+      transfer.status
+    );
+  }
+);
 
 // @DESC Get Transfer Dashboard Informations
 // @ROUTE /api/dashboard
@@ -21,7 +76,7 @@ export const getDashboard = asyncHandler(async (req, res): Promise<void> => {
   const ip: string | string[] | undefined =
     req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 
-  if (transfer.creatorIP !== ip) {
+  if (transfer.creatorIP === ip) {
     res.status(401).json({
       message:
         "You are currently not authorized. Check your email inbox if you are the creator!",
@@ -67,7 +122,6 @@ export const changeStatus = asyncHandler(async (req, res): Promise<void> => {
     return;
   }
 
-  // TODO: send email to creator to validate
   const ip: string | string[] | undefined =
     req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 

@@ -1,9 +1,9 @@
 import { TransferStatus } from "./../../client/src/shared/enums/TransferStatus.enum";
-import { TransferDto } from "../shared/types/Transfer";
+import { TransferType } from "../shared/types/Transfer";
 import mongoose from "mongoose";
 import CryptoJS from "crypto-js";
 
-const TransferSchema = new mongoose.Schema<TransferDto>(
+const TransferSchema = new mongoose.Schema<TransferType>(
   {
     accessId: {
       type: String,
@@ -56,6 +56,9 @@ const TransferSchema = new mongoose.Schema<TransferDto>(
       type: Boolean,
       default: false,
     },
+    requestCode: Number,
+    requestToken: String,
+    expiredRequestToken: Number,
   },
   { timestamps: true }
 );
@@ -72,6 +75,6 @@ TransferSchema.pre("save", function (next) {
   next();
 });
 
-const Transfer = mongoose.model<TransferDto>("Transfer", TransferSchema);
+const Transfer = mongoose.model<TransferType>("Transfer", TransferSchema);
 
 export default Transfer;

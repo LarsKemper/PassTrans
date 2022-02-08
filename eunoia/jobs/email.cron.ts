@@ -22,10 +22,11 @@ const sendEmailIfUpdated = async (): Promise<void> => {
       { status: { $ne: TransferStatus.PENDING_FOR_DELETION } },
     ],
   })
-    .then((transfers) => {
-      transfers.forEach((transfer) => {
-        transfer.updateOne({ updateStatus: false });
-        transfer.save();
+    .then(async (transfers) => {
+      transfers.map(async (transfer) => {
+        await Transfer.findByIdAndUpdate(transfer.id, {
+          statusUpdated: false,
+        });
         sendMail(
           mailType.STATUS_UPDATE,
           transfer.email,

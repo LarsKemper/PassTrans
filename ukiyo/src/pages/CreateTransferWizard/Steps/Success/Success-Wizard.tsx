@@ -40,7 +40,7 @@ function Success(props: Props) {
                         </div>
                         <input
                           type="email"
-                          className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                          className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-3 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
                           placeholder="johnsmith@example.com"
                         />
                       </div>
@@ -65,7 +65,7 @@ function Success(props: Props) {
                         </div>
                         <input
                           type="email"
-                          className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
+                          className="bg-primary-bg-darker bg-opacity-90 w-full -ml-10 pl-10 pr-3 py-4 rounded-lg border border-gray-200 outline-none focus:border-secondary-purple"
                           placeholder="johnsmith@example.com"
                         />
                       </div>
