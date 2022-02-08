@@ -28,12 +28,19 @@ jobs:
         run: |
           cd ukiyo
           npm install
+          
       - name: Install Server dependencies
         run: |
           cd eunoia
           npm install
 
-      - name: Run linters
-        uses: wearerequired/lint-action@v1
-        with:
-          eslint: true
+      - name: Run Linters in Client
+        run: |
+          cd ukiyo
+          npm run lint
+          
+      - name: Run Linters in Server
+        run: |
+          cd eunoia
+          npm run lint
+
