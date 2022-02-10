@@ -2,13 +2,6 @@
 
 An password transfer application built using the MERN stack
 
-![App Screenshot](/.assets/screen1.png?raw=true)
-
-<details>
-  <summary>More screenshots</summary><details>
-  <img src="/.assets/screen2.png?raw=true" name="screen2">
-</details>
-
 ## Tech Stack
 
 **Client:** React, TailwindCSS, PostCSS, TypeScript
