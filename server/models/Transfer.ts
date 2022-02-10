@@ -1,5 +1,5 @@
-import { TransferStatus } from "./../../client/src/shared/enums/TransferStatus.enum";
-import { TransferDto } from "../shared/types/Transfer";
+import { TransferStatus } from "../shared/enums/transferStatus.enum";
+import { TransferType } from "../shared/types/Transfer";
 import mongoose from "mongoose";
 import CryptoJS from "crypto-js";
 
@@ -56,6 +56,8 @@ const TransferSchema = new mongoose.Schema<TransferDto>(
       type: Boolean,
       default: false,
     },
+    requestCode: Number,
+    expiredRequestCode: Number,
   },
   { timestamps: true }
 );

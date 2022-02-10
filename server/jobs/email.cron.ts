@@ -1,5 +1,5 @@
 import { mailType } from "./../shared/enums/mailTypes.enum";
-import { TransferStatus } from "./../../client/src/shared/enums/TransferStatus.enum";
+import { TransferStatus } from "../shared/enums/transferStatus.enum";
 import cron from "cron";
 import Transfer from "../models/Transfer";
 import { sendMail } from "../services/mailer.service";

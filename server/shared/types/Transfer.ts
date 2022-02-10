@@ -1,5 +1,22 @@
-import { TransferStatus } from "./../../../client/src/shared/enums/TransferStatus.enum";
 import mongoose from "mongoose";
+
+export type TransferType = {
+  id: string;
+  accessId: string;
+  status: string;
+  creatorIP: string;
+  visitorIP: [string] | undefined;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  country: string;
+  expirationDate: Date;
+  viewedDate: Date | undefined;
+  statusUpdated: boolean;
+  requestCode: number | undefined;
+  expiredRequestCode: number | undefined;
+};
 
 export type TransferDto = {
   id: string;

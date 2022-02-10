@@ -6,6 +6,15 @@ export const getDashboard = async (id: string): Promise<AxiosResponse> => {
   return await axios.get(combineRoutes(apiRoutes.GET_DASHBOARD, id));
 };
 
+export const requestVerification = async (
+  id: string
+): Promise<AxiosResponse> => {
+  return await axios.post(
+    combineRoutes(apiRoutes.REQUEST_DASHBOARD_VERIFICATION),
+    { accessId: id }
+  );
+};
+
 export const changeStatus = async (
   id: string,
   newStatus: string
