@@ -88,13 +88,13 @@ To run this project, you will need to add the following environment variables to
 Clone the project
 
 ```bash
-  git clone https://github.com/LarsKemper/PassTransV2.git
+  git clone https://github.com/LarsKemper/PassTrans.git
 ```
 
 Go to the project directorys
 
 ```bash
-  cd PassTransV2
+  cd PassTrans
 ```
 
 Install dependencies
