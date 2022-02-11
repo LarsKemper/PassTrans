@@ -1,4 +1,3 @@
-import { TransferType } from "./../shared/types/Transfer";
 import { DashboardDto } from "./../shared/types/Dashboard";
 import asyncHandler from "express-async-handler";
 import Transfer from "../models/Transfer";

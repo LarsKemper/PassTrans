@@ -1,5 +1,3 @@
-import mongoose from "mongoose";
-
 export type TransferType = {
   id: string;
   accessId: string;

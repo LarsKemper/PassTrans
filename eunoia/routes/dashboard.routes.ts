@@ -6,7 +6,7 @@ import {
   getDashboard,
 } from "../controllers/dashboard.controller";
 
-const router: any = express.Router();
+const router = express.Router();
 
 router.route("/:accessId").get(getDashboard);
 router.route("/request").post(requestDashboard);

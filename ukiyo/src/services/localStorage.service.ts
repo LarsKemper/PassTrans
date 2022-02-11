@@ -11,7 +11,7 @@ export const loadState = (ref: string) => {
   }
 };
 
-export const saveState = (data: any, ref: string): void => {
+export const saveState = (data: boolean, ref: string): void => {
   try {
     const state = JSON.stringify(data);
     localStorage.setItem(ref, state);

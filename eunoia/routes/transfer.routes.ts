@@ -5,7 +5,7 @@ import {
   setTransferViewed,
 } from "../controllers/transfer.controller";
 
-const router: any = express.Router();
+const router = express.Router();
 
 router.route("/").post(createTransfer);
 router.route("/:accessId").get(getTransfer);

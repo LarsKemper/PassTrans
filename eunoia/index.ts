@@ -31,7 +31,11 @@ app.use(API_BASE + apiRoutes.TRANSFER, transferRoutes);
 app.use(API_BASE + apiRoutes.DASHBOARD, dashboardRoutes);
 
 // START
-const CONNECTION_URL: any = process.env.DB_URL;
+const CONNECTION_URL: string | undefined = process.env.DB_URL;
+if (!CONNECTION_URL) {
+  console.error("CONNECTION_URL NOT DEFINED");
+  process.exit();
+}
 const PORT = process.env.PORT || 5000;
 
 // MONGODB

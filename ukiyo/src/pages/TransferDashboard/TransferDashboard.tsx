@@ -11,7 +11,6 @@ import {
 import { DashboardDto } from "../../shared/types/Dashboard.types";
 import { TransferStatus } from "../../shared/enums/TransferStatus.enum";
 import { loadState, saveState } from "../../services/localStorage.service";
-import { frontendRoutes } from "../../shared/enums/frontendRoutes.enum";
 
 function TransferDashboard() {
   const navigate = useNavigate();
