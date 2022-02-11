@@ -1,4 +1,4 @@
-import { TransferStatus } from "./../../client/src/shared/enums/TransferStatus.enum";
+import { TransferStatus } from "../shared/enums/transferStatus.enum";
 import { TransferType } from "../shared/types/Transfer";
 import mongoose from "mongoose";
 import CryptoJS from "crypto-js";
@@ -32,6 +32,7 @@ const TransferSchema = new mongoose.Schema<TransferType>(
       type: String,
       required: [true, "Please type in a email"],
       validate: [
+        // eslint-disable-next-line no-useless-escape
         /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
         "Please type in a valid email.",
       ],
@@ -57,8 +58,7 @@ const TransferSchema = new mongoose.Schema<TransferType>(
       default: false,
     },
     requestCode: Number,
-    requestToken: String,
-    expiredRequestToken: Number,
+    expiredRequestCode: Date,
   },
   { timestamps: true }
 );

@@ -13,6 +13,9 @@ const ViewTransfer = lazy(() => import("../pages/ViewTransfer/ViewTransfer"));
 const TransferDashboard = lazy(
   () => import("../pages/TransferDashboard/TransferDashboard")
 );
+const TransferVerification = lazy(
+  () => import("../pages/TransferVerification")
+);
 
 function IndexRouter() {
   return (
@@ -31,6 +34,10 @@ function IndexRouter() {
           <Route
             path={frontendRoutes.TRANSFER_DASHBOARD}
             element={<TransferDashboard />}
+          />
+          <Route
+            path={frontendRoutes.TRANSFER_VERIFICATION}
+            element={<TransferVerification />}
           />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

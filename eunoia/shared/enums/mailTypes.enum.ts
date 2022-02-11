@@ -19,7 +19,7 @@ export function getTemplate(
     case mailType.STATUS_UPDATE:
       return StatusUpdateTemplate(status, accessId);
     case mailType.VERIFICATION:
-      return VerificationTemplate(accessId);
+      return VerificationTemplate(status);
     default:
       return "Failed";
   }
