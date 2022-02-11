@@ -2,6 +2,16 @@
 
 An password transfer application built using the MERN stack
 
+![App Screenshot](/.assets/screen1.png?raw=true)
+
+## Structure
+
+| Name   | Path       | description                  |
+| ------ | :--------- | :--------------------------- |
+| eunoia | `./eunoia` | Node, Express server         |
+| ukiyo  | `./ukiyo`  | React web frontend           |
+| app    | `./app`    | React native ios/android app |
+
 ## Tech Stack
 
 **Client:** React, TailwindCSS, PostCSS, TypeScript
@@ -84,21 +94,21 @@ Clone the project
 Go to the project directorys
 
 ```bash
-  cd client
-  and
-  cd server
+  cd PassTransV2
 ```
 
 Install dependencies
 
 ```bash
-  npm install
+  npm run client-install
+  npm run server-install
 ```
 
 Start the server
 
 ```bash
-  npm run start
+  npm run start-client
+  npm run start-server
 ```
 
 ##### Client will start on Port: 3000

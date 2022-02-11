@@ -1,0 +1,23 @@
+{
+  "name": "passtrans",
+  "private": true,
+  "version": "1.0.0",
+  "description": "An password transfer application built using the MERN stack",
+  "main": "-",
+  "scripts": {
+    "client-install": "cd ukiyo && npm install",
+    "server-install": "cd eunoia && npm install",
+    "start-client": "cd ukiyo && npm start",
+    "start-server": "cd eunoia && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LarsKemper/PassTransV2.git"
+  },
+  "author": "Lars Kemper",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LarsKemper/PassTransV2/issues"
+  },
+  "homepage": "https://github.com/LarsKemper/PassTransV2#readme"
+}
