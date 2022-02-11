@@ -1,4 +1,7 @@
-export const VerificationTemplate = (accessId: string): string => {
+export const VerificationTemplate = (
+  status: string | number,
+  accessId: string
+): string => {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html
     xmlns="http://www.w3.org/1999/xhtml"
@@ -564,7 +567,7 @@ export const VerificationTemplate = (accessId: string): string => {
                                           line-height: 25.2px;
                                           color: #666666;
                                         "
-                                        >To verify your transfer follow the link below:
+                                        >To verify your transfer use this code: <strong>${status}</strong>
                                       </span>
                                     </p>
                                   </div>
@@ -580,60 +583,6 @@ export const VerificationTemplate = (accessId: string): string => {
                             width="100%"
                             border="0"
                           >
-                            <tbody>
-                              <tr>
-                                <td
-                                  style="
-                                    overflow-wrap: break-word;
-                                    word-break: break-word;
-                                    padding: 0px 40px;
-                                    font-family: 'Lato', sans-serif;
-                                  "
-                                  align="left"
-                                >
-                                  <div align="left">
-                                    <a
-                                      href="http://localhost:3000/transfer-dashboard/${accessId}"
-                                      target="_blank"
-                                      style="
-                                        box-sizing: border-box;
-                                        display: inline-block;
-                                        font-family: 'Lato', sans-serif;
-                                        text-decoration: none;
-                                        -webkit-text-size-adjust: none;
-                                        text-align: center;
-                                        color: #ffffff;
-                                        background-color: #323044;
-                                        border-radius: 1px;
-                                        -webkit-border-radius: 1px;
-                                        -moz-border-radius: 1px;
-                                        width: auto;
-                                        max-width: 100%;
-                                        overflow-wrap: break-word;
-                                        word-break: break-word;
-                                        word-wrap: break-word;
-                                        mso-border-alt: none;
-                                      "
-                                    >
-                                      <span
-                                        style="
-                                          display: block;
-                                          padding: 15px 40px;
-                                          line-height: 120%;
-                                        "
-                                        ><span
-                                          style="
-                                            font-size: 18px;
-                                            line-height: 21.6px;
-                                          "
-                                          >Verify Transfer</span
-                                        ></span
-                                      >
-                                    </a>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
                         </table>
                           <table
                             style="font-family: 'Lato', sans-serif"

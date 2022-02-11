@@ -1,4 +1,3 @@
-import { TransferStatus } from "./../../../client/src/shared/enums/TransferStatus.enum";
 import mongoose from "mongoose";
 
 export type TransferType = {
@@ -16,8 +15,7 @@ export type TransferType = {
   viewedDate: Date | undefined;
   statusUpdated: boolean;
   requestCode: number | undefined;
-  requestToken: string | undefined;
-  expiredRequestToken: number | undefined;
+  expiredRequestCode: Date | undefined;
 };
 
 export type TransferDto = {

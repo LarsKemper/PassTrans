@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { error } from "../../services/alert/alert.service";
+import { error, info } from "../../services/alert/alert.service";
 import TransferDashboardView from "./states/TransferDashboardView";
 import TransferDashbaordSkeleton from "./states/TransferDashbaordSkeleton";
-import { getDashboard, changeStatus } from "../../api/dashboard.api";
+import {
+  getDashboard,
+  changeStatus,
+  requestVerification,
+} from "../../api/dashboard.api";
 import { DashboardDto } from "../../shared/types/Dashboard.types";
 import { TransferStatus } from "../../shared/enums/TransferStatus.enum";
+import { loadState, saveState } from "../../services/localStorage.service";
+import { frontendRoutes } from "../../shared/enums/frontendRoutes.enum";
 
 function TransferDashboard() {
   const navigate = useNavigate();
@@ -14,8 +20,33 @@ function TransferDashboard() {
   const [data, setData] = useState<DashboardDto>();
 
   useEffect(() => {
-    loadTransferData();
+    if (!params.accessId) {
+      navigate("/404");
+      return;
+    }
+    if (loadState(params.accessId)) {
+      loadTransferData();
+    } else {
+      requestDashboardVerification();
+    }
   }, [params]);
+
+  async function requestDashboardVerification(): Promise<void> {
+    if (!params.accessId) {
+      navigate("/404");
+      return;
+    }
+
+    return await requestVerification(params.accessId)
+      .then((res) => {
+        navigate(`/transfer-verification/${params.accessId}`);
+        info(res.data.message);
+        saveState(true, res.data.accessId);
+      })
+      .catch((err) => {
+        error(err.response.data.message);
+      });
+  }
 
   async function loadTransferData(): Promise<void> {
     if (!params.accessId) {
@@ -44,6 +75,9 @@ function TransferDashboard() {
             viewedDate: res.data.data.viewedDate,
           });
           setLoaded(true);
+        } else if (res.status === 203) {
+          navigate(`/transfer-verification/${params.accessId}`);
+          info(res.data.message);
         }
       })
       .catch((err) => {

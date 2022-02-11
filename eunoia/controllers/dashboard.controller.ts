@@ -1,20 +1,18 @@
-import { mailType } from "./../shared/enums/mailTypes.enum";
-import { sendMail } from "./../services/mailer.service";
+import { TransferType } from "./../shared/types/Transfer";
 import { DashboardDto } from "./../shared/types/Dashboard";
 import asyncHandler from "express-async-handler";
 import Transfer from "../models/Transfer";
-import { TransferDto, TransferType } from "../shared/types/Transfer";
+import { TransferDto } from "../shared/types/Transfer";
 import CryptoJS from "crypto-js";
-import crypto from "crypto";
+import { mailType } from "../shared/enums/mailTypes.enum";
+import { sendMail } from "../services/mailer.service";
+import { isExpired } from "../services/isExpired.service";
 
 // @DESC Request Access to Transfer Dashboard Informations
 // @ROUTE /api/dashboard/request
 // @METHOD POST
 export const requestDashboard = asyncHandler(
   async (req, res): Promise<void> => {
-    const requestToken = crypto.randomBytes(20).toString("hex");
-    const hash = crypto.createHash("sha256").update(requestToken).digest("hex");
-
     const transfer = await Transfer.findOne({
       accessId: req.body.accessId,
     });
@@ -24,11 +22,17 @@ export const requestDashboard = asyncHandler(
       return;
     }
 
+    if (transfer.requestCode) {
+      res.status(208).json({
+        message: "Please check your email inbox to verify your access",
+        accessId: transfer.accessId,
+      });
+      return;
+    }
+
     transfer.requestCode = Math.floor(1000 + Math.random() * 9000);
-    transfer.requestToken = hash;
-    transfer.expiredRequestToken = new Date().setHours(
-      new Date().getHours() + 1
-    );
+    const date: Date = new Date();
+    transfer.expiredRequestCode = new Date(date.setDate(date.getDate() + 1));
     await transfer.save();
 
     try {
@@ -39,31 +43,83 @@ export const requestDashboard = asyncHandler(
         transfer.requestCode
       );
 
-      res
-        .status(201)
-        .json({ success: true, message: "Check your emails to continue" });
+      res.status(201).json({
+        success: true,
+        accessId: transfer.accessId,
+        message: "Check your emails to continue",
+      });
     } catch (err) {
       transfer.requestCode = undefined;
-      transfer.requestToken = undefined;
-      transfer.expiredRequestToken = undefined;
+      transfer.expiredRequestCode = undefined;
       await transfer.save({ validateBeforeSave: false });
 
       res.status(401).json({ message: "Something gone wrong" });
     }
-    sendMail(
-      mailType.VERIFICATION,
-      transfer.email,
-      transfer.accessId,
-      transfer.status
-    );
   }
 );
 
-// @DESC Get Transfer Dashboard Informations
+// @DESC Verify request verification code for Dashboard
+// @ROUTE /api/dashboard
+// @METHOD POST
+export const verifyRequestCode = asyncHandler(
+  async (req, res): Promise<void> => {
+    const transfer = await Transfer.findOne({
+      accessId: req.body.accessId,
+    });
+
+    if (!transfer) {
+      res.status(401).json({ message: "Transfer not found" });
+      return;
+    }
+
+    if (
+      transfer.requestCode === undefined ||
+      transfer.expiredRequestCode === undefined
+    ) {
+      res.status(501).json({ message: "Something gone wrong" });
+      return;
+    }
+
+    if (transfer.requestCode != req.body.code) {
+      res.status(400).json({ message: "Verification code is wrong" });
+      return;
+    }
+
+    if (isExpired(transfer.expiredRequestCode)) {
+      transfer.requestCode = Math.floor(1000 + Math.random() * 9000);
+      const date: Date = new Date();
+      transfer.expiredRequestCode = new Date(date.setDate(date.getDate() + 1));
+      await transfer.save();
+
+      sendMail(
+        mailType.VERIFICATION,
+        transfer.email,
+        transfer.accessId,
+        transfer.requestCode
+      );
+
+      res.status(423).json({
+        message:
+          "Your verification code has expired. Please check your inbox. We have sent you a new one.",
+      });
+      return;
+    }
+
+    transfer.requestCode = undefined;
+    transfer.expiredRequestCode = undefined;
+    await transfer.save({ validateBeforeSave: false });
+
+    res.status(201).json({
+      success: true,
+    });
+  }
+);
+
+// @DESC Get Transfer Dashboard Information
 // @ROUTE /api/dashboard
 // @METHOD GET
 export const getDashboard = asyncHandler(async (req, res): Promise<void> => {
-  const transfer: TransferDto | null = await Transfer.findOne({
+  const transfer = await Transfer.findOne({
     accessId: req.params.accessId,
   });
 
@@ -72,15 +128,10 @@ export const getDashboard = asyncHandler(async (req, res): Promise<void> => {
     return;
   }
 
-  // TODO: Send Email to creator if ips are not matching!
-  const ip: string | string[] | undefined =
-    req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-
-  if (transfer.creatorIP === ip) {
-    res.status(401).json({
-      message:
-        "You are currently not authorized. Check your email inbox if you are the creator!",
-    });
+  if (transfer.requestCode) {
+    res
+      .status(203)
+      .json({ message: "Please check your inbox to verify your access!" });
     return;
   }
 
@@ -122,6 +173,7 @@ export const changeStatus = asyncHandler(async (req, res): Promise<void> => {
     return;
   }
 
+  // TODO: send email to creator to validate
   const ip: string | string[] | undefined =
     req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 

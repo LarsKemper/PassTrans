@@ -35,7 +35,7 @@ function Nav() {
             className="cursor-pointer inline-flex items-center"
           >
             <Link to="/">
-              <Logo className="-ml-12 h-8 hover:scale-105 duration-300" />
+              <Logo className="h-8 hover:scale-105 duration-300" />
             </Link>
           </span>
           <ul className="flex items-center hidden space-x-8 lg:flex">
