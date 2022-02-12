@@ -1,5 +1,5 @@
 <a href="https://dogehouse.tv"><p align="center">
-<img height=100 src="https://raw.githubusercontent.com/LarsKemper/PassTrans/95e7e5503b66f56bc1d45b50d0841c680ca7e97f/ukiyo/src/assets/logo/logo.svg"/>
+<img height=70 src="https://raw.githubusercontent.com/LarsKemper/PassTrans/95e7e5503b66f56bc1d45b50d0841c680ca7e97f/ukiyo/src/assets/logo/logo.svg"/>
 
 </p></a>
 <p align="center">
