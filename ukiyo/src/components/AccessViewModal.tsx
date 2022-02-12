@@ -63,7 +63,7 @@ function AccessViewModal(props: Props) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block overflow-visible my-8 text-left align-middle transition-all transform">
+              <div className="inline-block overflow-visible m-8 text-left align-middle transition-all transform">
                 <div className="relative z-50 w-full bg-opacity-70 bg-primary-bg-darker max-w-lg p-5 mx-auto my-auto rounded-xl shadow-lg  ">
                   <div className="px-10 my-6 py-4 flex-auto justify-center">
                     <form onSubmit={handleSubmit}>

@@ -80,31 +80,28 @@ function Nav() {
             </button>
             {isMenuOpen && (
               <div className="absolute top-0 left-0 w-full">
-                <div className="p-5 bg-primary-bg-darker rounded-xl shadow-sm">
+                <div className="p-5 bg-primary-bg-darker rounded shadow-sm">
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <a
-                        href="/"
-                        aria-label="Company"
-                        title="Company"
-                        className="inline-flex items-center"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-8 text-secondary-purple"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span className="cursor-pointer duration-300 hover:text-secondary-purple ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
-                          PassTrans
+                      <Link to="/">
+                        <span className="inline-flex items-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-8 text-secondary-purple"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          <span className="cursor-pointer duration-300 hover:text-secondary-purple ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
+                            PassTrans
+                          </span>
                         </span>
-                      </a>
+                      </Link>
                     </div>
                     <div>
                       <button
@@ -123,46 +120,28 @@ function Nav() {
                     </div>
                   </div>
                   <nav>
-                    <ul className="space-y-4">
+                    <ul className="space-y-6">
                       <li>
-                        <a
-                          href="/"
-                          aria-label="Our product"
-                          title="Our product"
-                          className="font-medium tracking-wide text-white transition-colors duration-300 hover:text-secondary-purple"
+                        <span
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setIsTransferViewModalOpen(true);
+                          }}
+                          className="cursor-pointer text-lg font-medium tracking-wide text-white transition-colors duration-300 hover:text-secondary-purple"
                         >
-                          Home
-                        </a>
+                          View Transfer
+                        </span>
                       </li>
                       <li>
-                        <a
-                          href="/"
-                          aria-label="Our product"
-                          title="Our product"
-                          className="font-medium tracking-wide text-white transition-colors duration-300 hover:text-secondary-purple"
+                        <span
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setIsTransferDashboardModalOpen(true);
+                          }}
+                          className="cursor-pointer text-lg inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-300 rounded shadow-md bg-secondary-purple hover:bg-secondary-purple-2 focus:shadow-outline focus:outline-none"
                         >
-                          Support
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/"
-                          aria-label="Product pricing"
-                          title="Product pricing"
-                          className="font-medium tracking-wide text-white transition-colors duration-300 hover:text-secondary-purple"
-                        >
-                          Sign in
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/"
-                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-300 rounded shadow-md bg-secondary-purple hover:bg-secondary-purple-2 focus:shadow-outline focus:outline-none"
-                          aria-label="Sign up"
-                          title="Sign up"
-                        >
-                          Sign up
-                        </a>
+                          Access Dashboard
+                        </span>
                       </li>
                     </ul>
                   </nav>
