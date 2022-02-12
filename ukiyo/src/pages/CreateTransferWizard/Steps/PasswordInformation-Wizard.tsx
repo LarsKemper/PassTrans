@@ -137,7 +137,7 @@ function PasswordInformation(props: TransferStep) {
                       </div>
                     </div>
                     <div className="flex -mx-3">
-                      <div className="flex w-full px-3 mb-5">
+                      <div className="flex w-full px-3 mb-5 space-x-4">
                         <button
                           onClick={props.prevStep}
                           className="bg-opacity-100 block w-full max-w-xs mx-auto bg-secondary-purple hover:bg-secondary-purple-2 focus:secondary-purple-dark text-white rounded-lg px-3 py-3 font-semibold"

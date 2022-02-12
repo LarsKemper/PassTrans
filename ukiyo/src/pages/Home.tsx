@@ -33,9 +33,9 @@ function Home() {
                 </Link>
               </div>
             </div>
-            <div className="my-12 sm:my-2 w-full h-56 sm:h-96 relative">
+            <div className="relative my-12 sm:my-2 w-full h-56 sm:h-96">
               <svg
-                className="-mt-12 absolute"
+                className="scale-75 sm:scale-75 md:scale-75 lg:scale-100 -mt-12"
                 viewBox="0 0 200 200"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -45,7 +45,7 @@ function Home() {
                   transform="translate(100 100)"
                 />
               </svg>
-              <Svg className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-150" />
+              <Svg className="scale-125 sm:scale-110 lg:scale-125 xl:scale-150  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
             </div>
           </div>
         </div>
