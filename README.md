@@ -1,6 +1,12 @@
-# PassTrans
+<a href="https://dogehouse.tv"><p align="center">
+<img height=100 src="https://raw.githubusercontent.com/benawad/dogehouse/staging/.redesign-assets/dogehouse_logo.svg"/>
 
-An password transfer application built using the MERN stack
+</p></a>
+<p align="center">
+  <strong>An password transfer application built using the MERN stack 🚀</strong>
+</p>
+
+---
 
 ![App Screenshot](/.assets/screen1.png?raw=true)
 
