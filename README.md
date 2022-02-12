@@ -6,19 +6,16 @@ An password transfer application built using the MERN stack
 
 ## Structure
 
-| Name   | Path       | description                  |
-| ------ | :--------- | :--------------------------- |
-| eunoia | `./eunoia` | Node, Express server         |
-| ukiyo  | `./ukiyo`  | React web frontend           |
-| app    | `./app`    | React native ios/android app |
+| Name   | Path       | description          |
+| ------ | :--------- | :------------------- |
+| eunoia | `./eunoia` | Node, Express server |
+| ukiyo  | `./ukiyo`  | React web frontend   |
 
 ## Tech Stack
 
 **Client:** React, TailwindCSS, PostCSS, TypeScript
 
 **Server:** Node, Express, TypeScript
-
-**App:** React Native, Expo, TailwindCSS
 
 **Database:** MongoDB
 

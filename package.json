@@ -3,7 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "description": "An password transfer application built using the MERN stack",
-  "main": "-",
   "scripts": {
     "client-install": "cd ukiyo && npm install",
     "server-install": "cd eunoia && npm install",
